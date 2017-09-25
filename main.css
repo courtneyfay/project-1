@@ -1,0 +1,38 @@
+* {
+	background-color: grey;
+}
+
+.game-page {
+	margin: 1%;
+}
+
+#game-container {
+	background-color: pink;
+	float: left;
+	height: 97vh;
+	width: 61%;
+}
+
+.game-sidebar {
+ 	background-color: yellow;
+ 	display: inline-block;
+ 	float: right;
+ 	height: 97vh;
+	width: 38%;
+}
+
+table {
+	margin: 0 auto;
+}
+
+td {
+	background-color: cyan;
+	border: 1px solid black;
+	height: 50px;
+	text-align: center;
+	width: 50px;
+}
+
+.wall-block {
+	background-color: navy;
+}

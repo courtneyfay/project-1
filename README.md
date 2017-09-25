@@ -9,3 +9,11 @@ ADTs:
 ![alt text](planning/ADTspart2.jpg "ADTs part 2")
 
 Chip's Challenge Level 1: ![alt text](planning/chipschallenge.jpeg "Chip's Challenge Level 1")
+
+Potential Arabic style Google fonts:
+-Crushed (display), only 400
+-Macondo/Macondo Swash Caps (display), only 400
+
+Potential sans serif style Google fonts:
+-
+
