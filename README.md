@@ -7,3 +7,5 @@ Wireframe: ![alt text](planning/courtsquestwireframe.jpg "Court's Quest Wirefram
 ADTs: 
 ![alt text](planning/ADTspart1.jpg "ADTs part 1")
 ![alt text](planning/ADTspart2.jpg "ADTs part 2")
+
+Chip's Challenge Level 1: ![alt text](planning/chipschallenge.jpeg "Chip's Challenge Level 1")
