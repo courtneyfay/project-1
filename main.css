@@ -43,3 +43,10 @@ td {
 	margin: 0;
 	width: 100%;
 }
+
+.key {
+	background-color: purple;
+	height: 10px;
+	margin: 0;
+	width: 10px;
+}

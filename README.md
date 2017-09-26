@@ -10,6 +10,8 @@ ADTs:
 
 Chip's Challenge Level 1: ![alt text](planning/chipschallengelevel1.png "Chip's Challenge Level 1")
 
+Windows version of Chip's Challenge game link: https://classicreload.com/windows-chips-challenge.html
+
 Potential Arabic style Google fonts:
 -Crushed (display), only 400
 -Macondo/Macondo Swash Caps (display), only 400

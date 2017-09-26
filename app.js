@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	let gameContainer = document.getElementById('game-container');
 	let tdArray = [];
 	let wallBlocksArray = [2,3,4,8,11,13,17,18,19,20,22,23,24,25,26,27,33,36,42,45,51,52,53,54,60,63,69,72,73,74,75,76,77,78,79,80];
+	let keyArray = [28,32,46,50];
 
 	function createBoard() {
 
@@ -51,10 +52,9 @@ document.addEventListener('DOMContentLoaded', function() {
 		function Character() {
 			this.name = name;
 			this.element = document.createElement('div');
-			//this.class = element.classList.add('court');
 		};
 
-		// prototype method for the Character object: move()
+		// prototype method for the Character object: create(), checkDirection(), move(), isWall() 
 		Character.prototype = {
 
 			// creates the character as a div on top of cell 40 to start
@@ -126,9 +126,62 @@ document.addEventListener('DOMContentLoaded', function() {
 		};
    };
 
+  function createKeys() {
+
+		// constructor function to create 8 keys
+		function Key() {
+			this.name = name;
+			this.element = document.createElement('div');
+		};
+
+		// prototype method for the Key object: create(), openDoor()
+		Key.prototype = {
+
+			// creates the key as a div on top of cell (listed in keyArray) at the start
+			create: function() {
+				for (let i = 0; i < tdArray.length; i++) {
+					let tdNum = parseInt(tdArray[i].getAttribute('data-num'));
+					for (let i = 0; i < keyArray.length; i++) {
+						let kNum = keyArray[i];
+						if (tdNum === kNum) { 
+							tdArray[tdNum].classList.add('key');
+						} 
+					}
+				}
+				/*for (let i = 0; i < keyArray.length; i++) {
+					console.log('I made a ball');
+					let keyCell = keyArray[i];
+					keyCell.append(this.element);
+					this.element.classList.add('key');
+				};*/
+				/*
+		
+			
+				for (let i=0; i<10; i++){
+			allBalls.push(new Ball(i));
+			allBalls[i].createBall();
+			window.setInterval(allBalls[i].moveBall.bind(allBalls[i].self), 1000);
+;*/
+			},
+
+			openDoor() {
+				console.log('I tried to open a door!');
+			}
+		};
+
+		// creates 4 keys as divs and puts them on the map
+		for (let i = 0; i <keyArray.length; i++) {
+			let key = new Key('key' + i);
+			key.create();
+		}
+		
+
+  };
+
   function startGame() {
   	createBoard();
 		createCharacter();
+		createKeys();
   };
 
   startGame();
