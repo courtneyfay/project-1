@@ -36,3 +36,10 @@ td {
 .wall-block {
 	background-color: navy;
 }
+
+.character {
+	background-color: orange;
+	height: 100%;
+	margin: 0;
+	width: 100%;
+}
