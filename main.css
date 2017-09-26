@@ -1,5 +1,5 @@
 * {
-	background-color: grey;
+	/*background-color: grey;*/
 }
 
 .game-page {
@@ -35,7 +35,7 @@
 }
 
 .sidebar-sub-div {
-	background-color: white;
+	/*background-color: white;*/
 	height: 20%;
 	left: 4%;
 	position: relative;
@@ -45,7 +45,6 @@
 
 .key-table {
 	background-color: grey;
-
 }
 
 table {
@@ -53,15 +52,21 @@ table {
 }
 
 td {
-	background-color: #C3C3C3;
-	border: 1px solid black;
+	background-image: url('media/floor.png');
+	background-size: cover;
 	height: 50px;
 	text-align: center;
 	width: 50px;
 }
 
 .wall-block {
-	background-color: #828282;
+	background-image: url('media/wallblock.png');
+	background-size: cover;
+}
+
+.key-door {
+	background-image: url('media/keydoorRed.png');
+	background-size: cover;
 }
 
 .character {
@@ -75,12 +80,6 @@ td {
 .key {
 	background-image: url('media/keyRed.png');
 	background-size: cover;
-	height: 10px;
-	margin: 0;
-	width: 10px;
 }
 
-.key-door {
-	background-color: navy;
-}
 
