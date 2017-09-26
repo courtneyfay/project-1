@@ -8,7 +8,7 @@ ADTs:
 ![alt text](planning/ADTspart1.jpg "ADTs part 1")
 ![alt text](planning/ADTspart2.jpg "ADTs part 2")
 
-Chip's Challenge Level 1: ![alt text](planning/chipschallenge.jpeg "Chip's Challenge Level 1")
+Chip's Challenge Level 1: ![alt text](planning/chipschallengelevel1.png "Chip's Challenge Level 1")
 
 Potential Arabic style Google fonts:
 -Crushed (display), only 400
