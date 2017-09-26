@@ -1,5 +1,5 @@
 * {
-	/*background-color: grey;*/
+	
 }
 
 .game-page {
@@ -49,6 +49,7 @@
 
 table {
 	margin: 0 auto;
+	background-color: grey;
 }
 
 td {
@@ -70,7 +71,7 @@ td {
 }
 
 .character {
-	background-image: url('media/chip.png');
+	background-image: url('media/player.png');
 	background-size: cover;
 	height: 100%;
 	margin: 0;
@@ -80,6 +81,13 @@ td {
 .key {
 	background-image: url('media/keyRed.png');
 	background-size: cover;
+}
+
+.chip {
+	background-image: url('media/computerchip.png');
+	background-size: cover;
+	height: 10px;
+	width: 10px;
 }
 
 

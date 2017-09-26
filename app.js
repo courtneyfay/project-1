@@ -5,10 +5,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	// global variables
 	let gamePage = document.getElementById('game-page');
-	let hubContentArray = [100,5];
+	let hubContentArray = [100,7];
 	let wallBlocksArray = [2,3,4,8,11,13,17,18,19,20,22,23,24,25,26,27,33,36,42,45,51,52,53,54,60,63,69,72,73,74,75,76,77,78,79,80];
 	let keyArray = [0,7,32,62];
-	let keyDoorsArray = [19,23,69];
+	let keyDoorsArray = [19,23,42,69];
+	let chipArray = [1,15,35,37,41,67,71];
 	let tdArray = [];
 	let keysCollectedArray = [];
 
@@ -19,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		rightColumn.classList.add('game-sidebar');
 		gamePage.append(rightColumn);
 
-		// creates a key table with 1 row and 4 columns, and pushes it into the hubcontentarray
+		// creates a key table with 1 row and 4 columns, and pushes it into hubcontentarray
 		let keyTable = document.createElement('table');
 		keyTable.classList.add('key-table');
 		hubContentArray.push(keyTable);
@@ -35,20 +36,6 @@ document.addEventListener('DOMContentLoaded', function() {
 				tr2.append(td2);
 			}
 		}
-
-		/*// create 9 new table rows and append them to the new table
-		for (let i = 0; i < 9; i++) {
-			let tr = document.createElement('tr');
-			tr.classList.add('table-row');
-			table.append(tr);
-
-			//create 9 new cells and append to the corresponding table row
-			for (let i = 0; i < 9; i++) {
-				let td = document.createElement('td');
-				tdArray.push(td);
-				tr.append(td);
-			}
-		}*/
 		
 		// adds divs to the right aside and adds classes to style them
 		let hubTitlesArray = ['Timer', 'Chips Left', 'Keys'];
@@ -172,7 +159,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				if (this.isWall(newCell)) {
 					return;
 				} else if (this.isDoor(newCell)) {
-					console.log('next step is to check to see if chip has collected the key!');
+					this.isLocked(newCell);
 				} else {
 					this.collect(newCell);
 					newCell.append(this.element);
@@ -197,20 +184,25 @@ document.addEventListener('DOMContentLoaded', function() {
 				}
 			},
 
+			// removes the key/chip from the game, decrements chips or adds keys to the key locker, and then adds keys to an array
 			collect: function(newCell) {
-				if (this.isKey(newCell) /*|| this.isChip(newCell)*/) {
-					
-					// first make the key div disappear from the map 
+
+				if (this.isKey(newCell)) {
 					newCell.classList.remove('key');
-				
-					// TODO: next make the key div appear on the right hand side in the 'key locker'
+					
+					// push the key into an array of keys collected
+					let key = 1;
+					keysCollectedArray.push(key);
 
-					// finally, push the key into an array of keys collected?
-
-
-				} else {
-					console.log('naht a key');
-				};
+					// makes the key div appear on the right hand side in the 'key locker' 
+					for (let i = 0; i < keysCollectedArray.length; i++) {
+						let keyLocker = document.getElementsByClassName('key-locker')[i];
+						keyLocker.classList.add('key');
+					}		
+				} else if (this.isChip(newCell)) {
+					newCell.classList.remove('chip');
+					this.decrementChips();
+				} 
 			},
 
 			isKey: function(newCell) {
@@ -221,18 +213,49 @@ document.addEventListener('DOMContentLoaded', function() {
 				}
 			},
 
+			isChip: function(newCell) {
+				if (newCell.classList.value === 'chip') {
+					return true;
+				} else {
+					return false;
+				}
+			},
+
+			decrementChips: function() {
+				let chipsLeft = -- hubContentArray[1];
+				let currentChipsDiv = document.getElementsByClassName('sidebar-sub-div')[1];
+				currentChipsDiv.textContent = chipsLeft;
+			},
+
+			isLocked: function(newCell) {
+				console.log('im trying to unlock the door');
+
+				if (keysCollectedArray.length >= 1) {
+					console.log(newCell);
+					newCell.classList.remove('key-door');
+					//find the keydoor
+					//remove class of 'key-door'
+				}
+				/*allowMove() allows Chip to move 1 step past this block and visually makes it disappear and "turn into" floor // 
+					unlockDoor() - allows Chip to use the key to unlock the key block "doorway"
+					//call isLocked() function -- checks to see if player has any keys
+						//if player has at least one key in keysCollectedArray, "unlock" the door (by removing the class of 'wall-block') 
+							//AND pop a key from the array to remove it
+						//if player does not have a key in keysCollectedArray, do nothing 
+					*/
+			}
 		};
 
-		// creates Court as the main character and puts her on the map
-		let court = new Character("Court");
-		court.create();
+		// creates player as the main character and puts her on the map
+		let player = new Character("Court");
+		player.create();
 
 		// turns on event listeners for the arrow keys to help move Court
 		document.addEventListener('keydown',keypressListener);
 
 		function keypressListener() {
 			if (event.key === 'ArrowUp' || event.key === 'ArrowRight' || event.key === 'ArrowDown' || event.key === 'ArrowLeft') { 
-      	court.checkDirection();	
+      	player.checkDirection();	
       }
 		};
    };
@@ -266,10 +289,46 @@ document.addEventListener('DOMContentLoaded', function() {
 			}
 		};
 
-		// creates 4 keys as divs and puts them on the map
-		for (let i = 0; i <keyArray.length; i++) {
+		// creates 4 keys as divs and puts them on the game
+		for (let i = 0; i < keyArray.length; i++) {
 			let key = new Key('key' + i);
 			key.create();
+		};
+  };
+
+  function createChips() {
+
+		// constructor function to create 8 keys
+		function Chip() {
+			this.name = name;
+			this.element = document.createElement('div');
+		};
+
+		// prototype method for the Chip object: create(), openPortalDoor()
+		Chip.prototype = {
+
+			// creates the key as a div on top of cell (listed in keyArray) at the start
+			create: function() {
+				for (let i = 0; i < tdArray.length; i++) {
+					let tdNum = parseInt(tdArray[i].getAttribute('data-num'));
+					for (let i = 0; i < chipArray.length; i++) {
+						let cNum = chipArray[i];
+						if (tdNum === cNum) { 
+							tdArray[tdNum].classList.add('chip');
+						} 
+					}
+				}
+			},
+
+			openPortalDoor() {
+				console.log('I tried to open the final door!');
+			}
+		};
+
+		// creates 7 chips as divs and puts them on the game
+		for (let i = 0; i < chipArray.length; i++) {
+			let chip = new Chip('chip' + i);
+			chip.create();
 		}
   };
 
@@ -305,6 +364,7 @@ window.onload = function () {
   	createBoard();
 		createCharacter();
 		createKeys();
+		createChips();
 		startTimer();
   };
 
