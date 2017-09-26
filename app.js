@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	let gameContainer = document.getElementById('game-container');
 	let tdArray = [];
 	let wallBlocksArray = [2,3,4,8,11,13,17,18,19,20,22,23,24,25,26,27,33,36,42,45,51,52,53,54,60,63,69,72,73,74,75,76,77,78,79,80];
-	let keyArray = [28,32,46,50];
+	let keyArray = [0,7,32,62];
 
 	function createBoard() {
 
@@ -148,20 +148,6 @@ document.addEventListener('DOMContentLoaded', function() {
 						} 
 					}
 				}
-				/*for (let i = 0; i < keyArray.length; i++) {
-					console.log('I made a ball');
-					let keyCell = keyArray[i];
-					keyCell.append(this.element);
-					this.element.classList.add('key');
-				};*/
-				/*
-		
-			
-				for (let i=0; i<10; i++){
-			allBalls.push(new Ball(i));
-			allBalls[i].createBall();
-			window.setInterval(allBalls[i].moveBall.bind(allBalls[i].self), 1000);
-;*/
 			},
 
 			openDoor() {
