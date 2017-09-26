@@ -68,30 +68,18 @@ document.addEventListener('DOMContentLoaded', function() {
 			checkDirection: function() {
 				switch (event.key) {
 					case 'ArrowUp':
-						// check for wall blocks first!!
-
-						// move Court div up 9 numbers in the td Array
 						this.move(-9);
 						break;
 					
 					case 'ArrowRight':
-						// check for wall blocks first!!
-
-						// move Court div right 1 number in the td Array
 						this.move(1);
 						break;
 					
 					case 'ArrowDown':
-						// check for wall blocks first!!
-
-						// move Court div down 9 numbers in the td Array
 						this.move(9);
 						break;
 
 					case 'ArrowLeft':
-						// check for wall blocks first!!
-
-						// move Court div left 1 number in the td Array
 						this.move(-1);
 						break;
 				} 
@@ -102,9 +90,25 @@ document.addEventListener('DOMContentLoaded', function() {
 				let thisCell = this.element.parentElement;
 				let cellNum = parseInt(thisCell.getAttribute('data-num'));
 				
+				// add the direction number onto the array so that the character will move the right direction
 				cellNum = cellNum + direction;
 				let newCell = tdArray[cellNum];
-				newCell.append(this.element);
+
+				//check to see whether it is a wall first!
+				if(this.isWall(newCell)) {
+					return;
+				} else {
+					newCell.append(this.element);
+				}
+			},
+
+			// if cellNum is equal to any of the items in wallBlocksArray return true, else false
+			isWall: function(newCell) {
+				if (newCell.classList.value === 'wall-block') {
+					return true;
+				} else {
+					return false;
+				}
 			}
 		};
 
