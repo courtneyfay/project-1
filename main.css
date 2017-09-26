@@ -6,11 +6,11 @@
 	margin: 1%;
 }
 
-#game-container {
+.game-container {
 	background-color: pink;
 	float: left;
 	height: 97vh;
-	width: 61%;
+	width: 64%;
 }
 
 .game-sidebar {
@@ -18,7 +18,34 @@
  	display: inline-block;
  	float: right;
  	height: 97vh;
-	width: 38%;
+	width: 35%;
+}
+
+.sidebar-div {
+	background-color: cyan;
+	border: 1px solid grey;
+	clear: both;
+	height: 20%;
+	left: 4%;
+	margin: 3%;
+	position: relative;
+	text-align: center;
+	top: 3%;
+	width: 80%;
+}
+
+.sidebar-sub-div {
+	background-color: white;
+	height: 20%;
+	left: 4%;
+	position: relative;
+	top: 3%;
+	width: 80%;
+}
+
+.key-table {
+	background-color: grey;
+
 }
 
 table {
@@ -52,3 +79,8 @@ td {
 	margin: 0;
 	width: 10px;
 }
+
+.key-door {
+	background-color: navy;
+}
+

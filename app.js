@@ -4,16 +4,50 @@ document.addEventListener('DOMContentLoaded', function() {
   console.log('js is loaded!');
 
 	// global variables
-	let gameContainer = document.getElementById('game-container');
+	let gamePage = document.getElementById('game-page');
 	let tdArray = [];
+	let hubTitles = ['Timer', 'Chips Left', 'Keys'];
+	let hubContent = [100,5];
 	let wallBlocksArray = [2,3,4,8,11,13,17,18,19,20,22,23,24,25,26,27,33,36,42,45,51,52,53,54,60,63,69,72,73,74,75,76,77,78,79,80];
 	let keyArray = [0,7,32,62];
+	let keyDoors = [19,23,69];
 
 	function createBoard() {
 
-		// create a new table inside of game-container div
+		// creates the right column and all the HTML elements
+		let rightColumn = document.createElement('aside');
+		rightColumn.classList.add('game-sidebar');
+		gamePage.append(rightColumn);
+
+		//TODO create a key table and add it to the hubContent array 
+		let keyTable = document.createElement('table');
+		keyTable.classList.add('key-table');
+		hubContent.push(keyTable);
+		console.log(hubContent);
+		
+		// adds divs to the right aside and adds classes to style them
+		for (let i = 0; i < 3; i++) {
+			// creates hub titles
+			let hubDiv = document.createElement('div');
+			hubDiv.classList.add('sidebar-div');
+			hubDiv.innerHTML = hubTitles[i];
+			rightColumn.append(hubDiv);
+			
+			// creates hub content 
+			let hubSubDiv = document.createElement('div');
+			hubSubDiv.classList.add('sidebar-sub-div');
+			hubSubDiv.innerHTML = hubContent[i];
+			hubDiv.append(hubSubDiv);
+		}
+		
+		// creates the left column and all the HTML elements
+		let leftColumn = document.createElement('div');
+		leftColumn.classList.add('game-container');
+		gamePage.append(leftColumn);
+
+		// add a new table inside of game-container div
 		let table = document.createElement('table');
-		gameContainer.append(table);
+		leftColumn.append(table);
 
 		// create 9 new table rows and append them to the new table
 		for (let i = 0; i < 9; i++) {
@@ -35,6 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 
 		//if td array data-num value is equal to one in the wall blocks array, then add a class of wall-block
+		// TODO: add class of key-door for the keyDoor array
 		for (let i = 0; i < tdArray.length; i++) {
 			let tdNum = parseInt(tdArray[i].getAttribute('data-num'));
 			for (let i = 0; i < wallBlocksArray.length; i++) {
@@ -98,6 +133,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				if(this.isWall(newCell)) {
 					return;
 				} else {
+					// TODO check to see if you need to collect anything, create new collect() function!!
 					newCell.append(this.element);
 				}
 			},
@@ -109,6 +145,13 @@ document.addEventListener('DOMContentLoaded', function() {
 				} else {
 					return false;
 				}
+			},
+
+			collect: function() {
+				console.log('Im checking for something to collect');
+				// first make the key div disappear from the map
+				// next make the key div appear on the right hand side in the 'key locker'
+				// finally, push the key into an array of keys collected?
 			}
 		};
 
@@ -160,14 +203,41 @@ document.addEventListener('DOMContentLoaded', function() {
 			let key = new Key('key' + i);
 			key.create();
 		}
-		
-
   };
+
+  function startTimer() {
+  	console.log('I started the timer at 100 seconds');
+  	console.log(hubContent[0]); //timer value
+
+  	/*function startTimer(duration, display) {
+    var timer = duration, minutes, seconds;
+    setInterval(function () {
+        minutes = parseInt(timer / 60, 10)
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = minutes + ":" + seconds;
+
+        if (--timer < 0) {
+            timer = duration;
+        }
+    }, 1000);
+}
+
+window.onload = function () {
+    var fiveMinutes = 60 * 5,
+        display = document.querySelector('#time');
+    startTimer(fiveMinutes, display);
+};*/
+  }
 
   function startGame() {
   	createBoard();
 		createCharacter();
 		createKeys();
+		startTimer();
   };
 
   startGame();
