@@ -64,37 +64,47 @@ document.addEventListener('DOMContentLoaded', function() {
 				this.element.classList.add('character');
 			},
 
-			// moves the character either up, right, down or left depending on which arrow key is pressed
-			move: function() {
-				
-				// TODO: first add function that blocks move (checks to see if that cell is a wall block)
-
+			// decides whether to move the character up, right, down or left depending on which arrow key was pressed
+			checkDirection: function() {
 				switch (event.key) {
 					case 'ArrowUp':
-						console.log('move up');
-						let thisCell = this.element.parentElement;
-						let cellNum = parseInt(thisCell.getAttribute('data-num'));
-						cellNum + 9;
-						console.log(cellNum);
-						this.element.append()
+						// check for wall blocks first!!
 
-						/* let specialCell = tdArray[40];
-						specialCell.append(this.element); */
 						// move Court div up 9 numbers in the td Array
+						this.move(-9);
 						break;
+					
 					case 'ArrowRight':
-						console.log('move right');
+						// check for wall blocks first!!
+
 						// move Court div right 1 number in the td Array
+						this.move(1);
 						break;
+					
 					case 'ArrowDown':
-						console.log('move down');
+						// check for wall blocks first!!
+
 						// move Court div down 9 numbers in the td Array
+						this.move(9);
 						break;
+
 					case 'ArrowLeft':
-						console.log('move left');
+						// check for wall blocks first!!
+
 						// move Court div left 1 number in the td Array
+						this.move(-1);
 						break;
 				} 
+			}, 
+
+			// actually moves the character however many spaces they need to go
+			move: function(direction) {
+				let thisCell = this.element.parentElement;
+				let cellNum = parseInt(thisCell.getAttribute('data-num'));
+				
+				cellNum = cellNum + direction;
+				let newCell = tdArray[cellNum];
+				newCell.append(this.element);
 			}
 		};
 
@@ -107,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		function keypressListener() {
 			if (event.key === 'ArrowUp' || event.key === 'ArrowRight' || event.key === 'ArrowDown' || event.key === 'ArrowLeft') { 
-      	court.move();	
+      	court.checkDirection();	
       }
 		};
    };
