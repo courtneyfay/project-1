@@ -112,22 +112,19 @@ document.addEventListener('DOMContentLoaded', function() {
 		portalCell.append(portal);
 		portal.classList.add('portal');
 
+		// TODO: write function that "levels up" player to the next page of the game
+
 		// adds a portal door 
 		let portalDoor = document.createElement('div');
 		let portalDoorCell = tdArray[21];
 		portalDoorCell.append(portalDoor);
 		portalDoor.classList.add('portal-door');
 
-		// adds an enemy to the game board
-		let enemy = document.createElement('div');
-		let enemyCell = tdArray[65];
-		enemyCell.append(enemy);
-		enemy.classList.add('enemy');
 	};
 
 	function createCharacter() {
 
-		// constructor function to create character "Court" 
+		// constructor function to create characters 
 		function Character() {
 			this.name = name;
 			this.element = document.createElement('div');
@@ -137,10 +134,23 @@ document.addEventListener('DOMContentLoaded', function() {
 		Character.prototype = {
 
 			// creates the character as a div on top of cell 40 to start
-			create: function() {
-				let characterCell = tdArray[40];
-				characterCell.append(this.element);
-				this.element.classList.add('character');
+			create: function(name) {
+				// console.log(characterCell);
+				console.log(name);
+				if (name === 'Court') {
+					let characterCell = tdArray[40];
+					this.element.classList.add('character');
+					console.log('player character cell' + characterCell);
+					characterCell.append(this.element);
+					
+				} else if (name === 'djinn') {
+					let characterCell = tdArray[65];
+					this.element.classList.add('enemy');
+					console.log('enemy character cell' + characterCell);
+					characterCell.append(this.element);
+				}
+				// characterCell.append(this.element);
+				console.log('hitting the last code too!');
 			},
 
 			// decides whether to move the character up, right, down or left depending on which arrow key was pressed
@@ -240,6 +250,8 @@ document.addEventListener('DOMContentLoaded', function() {
 				let chipsLeft = -- hubContentArray[1];
 				let currentChipsDiv = document.getElementsByClassName('sidebar-sub-div')[1];
 				currentChipsDiv.textContent = chipsLeft;
+				/*checkPortalDoor 
+				if number of chips is 0, portal-door class is removed*/
 			},
 
 			// check to see if player has a key to "unlock" the door, update the key locker if you use one
@@ -272,9 +284,14 @@ document.addEventListener('DOMContentLoaded', function() {
 			}
 		};
 
-		// creates player as the main character and puts her on the map
-		let player = new Character("Court");
-		player.create();
+		// creates player as the main character and puts them on the map
+		let player = new Character();
+		player.create("Court");
+
+		// creates enemy as the computer character and puts them on the map
+		//http://answers.unity3d.com/questions/190991/script-for-pac-man-ghost-ai.html
+		let enemy = new Character();
+		enemy.create("djinn");
 
 		// turns on event listeners for the arrow keys to help move Court
 		document.addEventListener('keydown',keypressListener);
