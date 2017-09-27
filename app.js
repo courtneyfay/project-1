@@ -10,6 +10,10 @@ document.addEventListener('DOMContentLoaded', function() {
 	let keyArray = [0,7,32,62];
 	let keyDoorsArray = [19,23,42,69];
 	let chipArray = [1,15,35,37,41,67,71];
+	let enemy;
+	let timerVar;
+	let enemyVar;
+	let chipsLeft;
 	let tdArray = [];
 	let keysCollectedArray = [];
 
@@ -104,53 +108,46 @@ document.addEventListener('DOMContentLoaded', function() {
 					tdArray[tdNum].classList.add('key-door');
 				}
 			}
+			// adds a class of portal if array item has an index of 12
+			if (tdArray[12]) {
+				tdArray[12].classList.add('portal');
+			}
+
+			// adds a class of portal-door if array item has an index of 21
+			if (tdArray[21]) {
+				tdArray[21].classList.add('portal-door');
+			}	
 		}
-
-		// adds a portal 
-		let portal = document.createElement('div');
-		let portalCell = tdArray[12];
-		portalCell.append(portal);
-		portal.classList.add('portal');
-
-		// TODO: write function that "levels up" player to the next page of the game
-
-		// adds a portal door 
-		let portalDoor = document.createElement('div');
-		let portalDoorCell = tdArray[21];
-		portalDoorCell.append(portalDoor);
-		portalDoor.classList.add('portal-door');
-
 	};
 
 	function createCharacter() {
 
 		// constructor function to create characters 
 		function Character() {
-			this.name = name;
+			this.name = '';
+			this.type = '';
 			this.element = document.createElement('div');
 		};
 
-		// prototype method for the Character object: create(), checkDirection(), move(), isWall(), isDoor(), collect(), isKey()
+		// prototype method for the Character object: create(), checkDirection(), randomDirection(), move(), isWall(), isDoor(), 
+		// isPortalDoor(), isPortal(), collect(), isKey(), isChip(), decrementChips(), isLocked(), updateKeyLocker(), openPortalDoor()
 		Character.prototype = {
 
-			// creates the character as a div on top of cell 40 to start
-			create: function(name) {
-				// console.log(characterCell);
-				console.log(name);
+			// creates the player and enemy divs on top of their start cells
+			create: function(name,type) {
+				this.name = name;
+				this.type = type;
+
+				let characterCell = tdArray[0];
 				if (name === 'Court') {
-					let characterCell = tdArray[40];
+					characterCell = tdArray[40];
 					this.element.classList.add('character');
-					console.log('player character cell' + characterCell);
-					characterCell.append(this.element);
 					
 				} else if (name === 'djinn') {
-					let characterCell = tdArray[65];
+					characterCell = tdArray[65];
 					this.element.classList.add('enemy');
-					console.log('enemy character cell' + characterCell);
-					characterCell.append(this.element);
 				}
-				// characterCell.append(this.element);
-				console.log('hitting the last code too!');
+				characterCell.append(this.element);
 			},
 
 			// decides whether to move the character up, right, down or left depending on which arrow key was pressed
@@ -174,6 +171,16 @@ document.addEventListener('DOMContentLoaded', function() {
 				} 
 			}, 
 
+			// chooses a random direction for the character to move, either up, right, down, or left
+			// http://answers.unity3d.com/questions/190991/script-for-pac-man-ghost-ai.html
+			randomDirection: function() {
+				let directionArray = [-9, 1, 9, -1]; 
+				let randomDir = directionArray[Math.floor(Math.random() * directionArray.length)];
+				//console.log(Math.random() * directionArray.length);						
+				//console.log(randomDir);
+				//this.move(randomDir);
+			},
+
 			// actually moves the character however many spaces they need to go
 			move: function(direction) {
 				let thisCell = this.element.parentElement;
@@ -183,11 +190,16 @@ document.addEventListener('DOMContentLoaded', function() {
 				cellNum = cellNum + direction;
 				let newCell = tdArray[cellNum];
 
-				// first check to see whether it is a wall or a keydoor, then look for stuff to collect and move!
+				// add some logic so that this only applies to whichever type of character it is!
+				// first check to see whether it is a wall, a keydoor, or the portal door, then look for stuff to collect, then move!
 				if (this.isWall(newCell)) {
 					return;
+				} else if (this.isPortalDoor(newCell)) {
+					this.openPortalDoor(chipsLeft);
 				} else if (this.isDoor(newCell)) {
 					this.isLocked(newCell);
+				} else if (this.isPortal(newCell)) {
+					levelUp();
 				} else {
 					this.collect(newCell);
 					newCell.append(this.element);
@@ -212,6 +224,24 @@ document.addEventListener('DOMContentLoaded', function() {
 				}
 			},
 
+			// if cellNum has a class of portal-door, return true, else false
+			isPortalDoor: function(newCell) {
+				if (newCell.classList.value === 'portal-door') {
+					return true;
+				} else {
+					return false;
+				}
+			},
+
+			// if cellNum has a class of portal, return true, else false
+			isPortal: function(newCell) {
+				if (newCell.classList.value === 'portal') {
+					return true;
+				} else {
+					return false;
+				}
+			},
+
 			// removes the key/chip from the game, decrements chips or adds keys to the key locker, and then adds keys to an array
 			collect: function(newCell) {
 
@@ -225,7 +255,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				//if it's a chip, remove it from the game board, and decrement the total number of chips left to collect
 				else if (this.isChip(newCell)) {
 					newCell.classList.remove('chip');
-					this.decrementChips();
+					chipsLeft = this.decrementChips();
 				} 
 			},
 
@@ -247,18 +277,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
 			// everytime the player picks up a chip, decrement the number of chips left to pick up
 			decrementChips: function() {
-				let chipsLeft = -- hubContentArray[1];
+				chipsLeft = -- hubContentArray[1];
 				let currentChipsDiv = document.getElementsByClassName('sidebar-sub-div')[1];
 				currentChipsDiv.textContent = chipsLeft;
-				/*checkPortalDoor 
-				if number of chips is 0, portal-door class is removed*/
+				return chipsLeft;
 			},
 
 			// check to see if player has a key to "unlock" the door, update the key locker if you use one
 			isLocked: function(newCell) {
 				let keyLocker = document.getElementsByClassName('key-locker')[0];
-
-				console.log('first time: ' + keysCollectedArray);
 
 				if (keysCollectedArray.length >= 1) {
 					newCell.classList.remove('key-door');
@@ -281,17 +308,23 @@ document.addEventListener('DOMContentLoaded', function() {
 					let keyLocker = document.getElementsByClassName('key-locker')[i];
 					keyLocker.classList.add('key');
 				}	
+			},
+
+			openPortalDoor(chipsLeft) {
+				if (chipsLeft === 0) {
+					let portalDoor = document.getElementsByClassName('portal-door')[0];
+					portalDoor.classList.remove('portal-door');
+				}
 			}
 		};
 
 		// creates player as the main character and puts them on the map
 		let player = new Character();
-		player.create("Court");
+		player.create("Court","player");
 
 		// creates enemy as the computer character and puts them on the map
-		//http://answers.unity3d.com/questions/190991/script-for-pac-man-ghost-ai.html
-		let enemy = new Character();
-		enemy.create("djinn");
+		enemy = new Character();
+		enemy.create("djinn","enemy");
 
 		// turns on event listeners for the arrow keys to help move Court
 		document.addEventListener('keydown',keypressListener);
@@ -357,10 +390,6 @@ document.addEventListener('DOMContentLoaded', function() {
 						} 
 					}
 				}
-			},
-
-			openPortalDoor() {
-				console.log('I tried to open the final door!');
 			}
 		};
 
@@ -372,31 +401,32 @@ document.addEventListener('DOMContentLoaded', function() {
   };
 
   function startTimer() {
-  	// console.log('I started the timer at 100 seconds');
-  	// console.log(hubContentArray[0]); //timer value
 
-  	/*function startTimer(duration, display) {
-    var timer = duration, minutes, seconds;
-    setInterval(function () {
-        minutes = parseInt(timer / 60, 10)
-        seconds = parseInt(timer % 60, 10);
+  	// decrements the timer by 1 every second and makes the changes appear on the hub content
+  	let timeLeft = --hubContentArray[0];
+  	let currentTimeDiv = document.getElementsByClassName('sidebar-sub-div')[0];
+  	currentTimeDiv.textContent = timeLeft;
 
-        minutes = minutes < 10 ? "0" + minutes : minutes;
-        seconds = seconds < 10 ? "0" + seconds : seconds;
+  	// calls the endGame() function when the timer gets to 0
+  	if (timeLeft === 0) { endGame(); };
+  }
 
-        display.textContent = minutes + ":" + seconds;
+  function startEnemy() {
+  	enemy.randomDirection();
+  	//console.log(enemy.element);
+  	//console.log(enemy.randomDirection());
+  	//clearInterval(enemyVar);
+  }
 
-        if (--timer < 0) {
-            timer = duration;
-        }
-    }, 1000);
-}
+  function endGame() {
+  	alert('GAME OVER!');
+  	clearInterval(timerVar);
+  }
 
-window.onload = function () {
-    var fiveMinutes = 60 * 5,
-        display = document.querySelector('#time');
-    startTimer(fiveMinutes, display);
-};*/
+  function levelUp() {
+  	let portal = document.getElementsByClassName('portal')[0];
+		portal.classList.remove('portal');
+  	endGame();
   }
 
   function startGame() {
@@ -404,7 +434,8 @@ window.onload = function () {
 		createCharacter();
 		createKeys();
 		createChips();
-		startTimer();
+		timerVar = setInterval(startTimer, 1000);
+		enemyVar = setInterval(startEnemy, 1000);
   };
 
   startGame();
