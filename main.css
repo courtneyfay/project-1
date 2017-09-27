@@ -1,5 +1,5 @@
 * {
-	
+
 }
 
 .game-page {
@@ -70,7 +70,7 @@ td {
 	background-size: cover;
 }
 
-.character {
+.player {
 	background-image: url('media/player.png');
 	background-size: cover;
 	height: 100%;

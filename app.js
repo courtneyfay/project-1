@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				let characterCell = tdArray[0];
 				if (name === 'Court') {
 					characterCell = tdArray[40];
-					this.element.classList.add('character');
+					this.element.classList.add('player');
 					
 				} else if (name === 'djinn') {
 					characterCell = tdArray[65];
@@ -171,14 +171,11 @@ document.addEventListener('DOMContentLoaded', function() {
 				} 
 			}, 
 
-			// chooses a random direction for the character to move, either up, right, down, or left
-			// http://answers.unity3d.com/questions/190991/script-for-pac-man-ghost-ai.html
+			// chooses a random direction for the character to move from the array (either up, right, down, or left)
 			randomDirection: function() {
 				let directionArray = [-9, 1, 9, -1]; 
-				let randomDir = directionArray[Math.floor(Math.random() * directionArray.length)];
-				//console.log(Math.random() * directionArray.length);						
-				//console.log(randomDir);
-				//this.move(randomDir);
+				let randomDir = directionArray[Math.floor(Math.random() * directionArray.length)];		
+				this.move(randomDir);
 			},
 
 			// actually moves the character however many spaces they need to go
@@ -190,19 +187,37 @@ document.addEventListener('DOMContentLoaded', function() {
 				cellNum = cellNum + direction;
 				let newCell = tdArray[cellNum];
 
-				// add some logic so that this only applies to whichever type of character it is!
-				// first check to see whether it is a wall, a keydoor, or the portal door, then look for stuff to collect, then move!
-				if (this.isWall(newCell)) {
-					return;
-				} else if (this.isPortalDoor(newCell)) {
-					this.openPortalDoor(chipsLeft);
-				} else if (this.isDoor(newCell)) {
-					this.isLocked(newCell);
-				} else if (this.isPortal(newCell)) {
-					levelUp();
-				} else {
-					this.collect(newCell);
+				/* if it's an enemy, 
+				it can walk through walls and doors, but can't go through the portal. 
+				can trigger endGame() if it touches the player*/
+				if (this.type === 'enemy') {
+					if (this.isPortal(newCell, this.type)) { //TODO refine this logic because it's breaking
+						return;
+					} else if (this.isPlayer(newCell)) {
+						let playerDiv = document.getElementsByClassName('player')[0]; 
+						playerDiv.classList.remove('player'); 
+						endGame();
+					}
 					newCell.append(this.element);
+				} 
+
+				/* if a player (not an enemy)
+				first check to see whether it is a wall, a keydoor, or the portal door, 
+				then look for stuff to collect, 
+				then move!*/
+				else if (this.type === 'player') {
+						if (this.isWall(newCell)) {
+						return;
+					} else if (this.isPortalDoor(newCell)) {
+						this.openPortalDoor(chipsLeft);
+					} else if (this.isDoor(newCell)) {
+						this.isLocked(newCell);
+					} else if (this.isPortal(newCell)) {
+						levelUp();
+					} else {
+						this.collect(newCell);
+						newCell.append(this.element);
+					}
 				}
 			},
 
@@ -234,11 +249,43 @@ document.addEventListener('DOMContentLoaded', function() {
 			},
 
 			// if cellNum has a class of portal, return true, else false
-			isPortal: function(newCell) {
-				if (newCell.classList.value === 'portal') {
-					return true;
-				} else {
-					return false;
+			isPortal: function(newCell, type) {
+				if (type === 'enemy') {
+					let checkForPortal = newCell.childNodes;
+
+					//check to make sure it's defined, then look to see if the class is portal
+					if (checkForPortal.length === 1) {
+						let newCellValue = newCell.childNodes[0].classList.value;
+						if (newCellValue === 'portal') {
+							return true;
+						} else {
+							return false;
+						}
+					}
+				}
+				else if (type === 'player') {
+					console.log(type);
+					let newCellValue = newCell.classList.value;
+					//return newCellValue;
+					if (newCell.classList.value === 'portal') {
+						return true;
+					} else {
+						return false;
+					}
+				}
+			},
+
+			// if cellNum has a class of player, return true, else false
+			isPlayer: function(newCell) {
+				let checkForPlayer = newCell.childNodes;
+
+				//check to make sure it's defined, then look to see if the class is player
+				if (checkForPlayer.length === 1) {
+					if (checkForPlayer[0].classList.value === 'player') {
+						return true;
+					} else {
+						return false;
+					}
 				}
 			},
 
@@ -413,14 +460,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function startEnemy() {
   	enemy.randomDirection();
-  	//console.log(enemy.element);
-  	//console.log(enemy.randomDirection());
-  	//clearInterval(enemyVar);
   }
 
   function endGame() {
   	alert('GAME OVER!');
   	clearInterval(timerVar);
+  	clearInterval(enemyVar);
   }
 
   function levelUp() {
@@ -435,8 +480,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		createKeys();
 		createChips();
 		timerVar = setInterval(startTimer, 1000);
-		enemyVar = setInterval(startEnemy, 1000);
-  };
+		enemyVar = setInterval(startEnemy, 1000); // change back to 500 s
+   };
 
   startGame();
 });
