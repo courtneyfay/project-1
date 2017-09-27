@@ -105,6 +105,24 @@ document.addEventListener('DOMContentLoaded', function() {
 				}
 			}
 		}
+
+		// adds a portal 
+		let portal = document.createElement('div');
+		let portalCell = tdArray[12];
+		portalCell.append(portal);
+		portal.classList.add('portal');
+
+		// adds a portal door 
+		let portalDoor = document.createElement('div');
+		let portalDoorCell = tdArray[21];
+		portalDoorCell.append(portalDoor);
+		portalDoor.classList.add('portal-door');
+
+		// adds an enemy to the game board
+		let enemy = document.createElement('div');
+		let enemyCell = tdArray[65];
+		enemyCell.append(enemy);
+		enemy.classList.add('enemy');
 	};
 
 	function createCharacter() {
@@ -120,8 +138,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 			// creates the character as a div on top of cell 40 to start
 			create: function() {
-				let specialCell = tdArray[40];
-				specialCell.append(this.element);
+				let characterCell = tdArray[40];
+				characterCell.append(this.element);
 				this.element.classList.add('character');
 			},
 
@@ -187,19 +205,15 @@ document.addEventListener('DOMContentLoaded', function() {
 			// removes the key/chip from the game, decrements chips or adds keys to the key locker, and then adds keys to an array
 			collect: function(newCell) {
 
+				// if it's a key, remove it from the game board, make it appear in the key locker, and add it to an array of keys collected
 				if (this.isKey(newCell)) {
 					newCell.classList.remove('key');
-					
-					// push the key into an array of keys collected
 					let key = 1;
 					keysCollectedArray.push(key);
-
-					// makes the key div appear on the right hand side in the 'key locker' 
-					for (let i = 0; i < keysCollectedArray.length; i++) {
-						let keyLocker = document.getElementsByClassName('key-locker')[i];
-						keyLocker.classList.add('key');
-					}		
-				} else if (this.isChip(newCell)) {
+					this.updateKeyLocker();
+				} 
+				//if it's a chip, remove it from the game board, and decrement the total number of chips left to collect
+				else if (this.isChip(newCell)) {
 					newCell.classList.remove('chip');
 					this.decrementChips();
 				} 
@@ -221,28 +235,40 @@ document.addEventListener('DOMContentLoaded', function() {
 				}
 			},
 
+			// everytime the player picks up a chip, decrement the number of chips left to pick up
 			decrementChips: function() {
 				let chipsLeft = -- hubContentArray[1];
 				let currentChipsDiv = document.getElementsByClassName('sidebar-sub-div')[1];
 				currentChipsDiv.textContent = chipsLeft;
 			},
 
+			// check to see if player has a key to "unlock" the door, update the key locker if you use one
 			isLocked: function(newCell) {
-				console.log('im trying to unlock the door');
+				let keyLocker = document.getElementsByClassName('key-locker')[0];
+
+				console.log('first time: ' + keysCollectedArray);
 
 				if (keysCollectedArray.length >= 1) {
-					console.log(newCell);
 					newCell.classList.remove('key-door');
-					//find the keydoor
-					//remove class of 'key-door'
-				}
-				/*allowMove() allows Chip to move 1 step past this block and visually makes it disappear and "turn into" floor // 
-					unlockDoor() - allows Chip to use the key to unlock the key block "doorway"
-					//call isLocked() function -- checks to see if player has any keys
-						//if player has at least one key in keysCollectedArray, "unlock" the door (by removing the class of 'wall-block') 
-							//AND pop a key from the array to remove it
-						//if player does not have a key in keysCollectedArray, do nothing 
-					*/
+					keysCollectedArray.pop();
+					this.updateKeyLocker();
+				} 
+			},
+
+			// either adds or removes a key depending on the length of the keysCollectedArray
+			updateKeyLocker: function() {
+				
+				//reset all keys in the key locker to empty
+				for (let i = 0; i < keyArray.length; i++) {
+					let keyLocker = document.getElementsByClassName('key-locker')[i];
+					keyLocker.classList.remove('key');
+				}	
+
+				// add keys to the key locker equal to the number in the keys collected array
+				for (let i = 0; i < keysCollectedArray.length; i++) {
+					let keyLocker = document.getElementsByClassName('key-locker')[i];
+					keyLocker.classList.add('key');
+				}	
 			}
 		};
 
@@ -268,7 +294,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			this.element = document.createElement('div');
 		};
 
-		// prototype method for the Key object: create(), openDoor()
+		// prototype method for the Key object: create()
 		Key.prototype = {
 
 			// creates the key as a div on top of cell (listed in keyArray) at the start
@@ -282,10 +308,6 @@ document.addEventListener('DOMContentLoaded', function() {
 						} 
 					}
 				}
-			},
-
-			openDoor() {
-				console.log('I tried to open a door!');
 			}
 		};
 

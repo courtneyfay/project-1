@@ -86,8 +86,27 @@ td {
 .chip {
 	background-image: url('media/computerchip.png');
 	background-size: cover;
-	height: 10px;
-	width: 10px;
+}
+
+.portal-door {
+	background-image: url('media/portaldoor.png');
+	background-size: cover;
+	height: 50px;
+	width: 50px;
+}
+
+.portal {
+	background-image: url('media/portal.png');
+	background-size: cover;
+	height: 50px;
+	width: 50px;
+}
+
+.enemy {
+	background-image: url('media/pacman.png');
+	background-size: cover;
+	height: 50px;
+	width: 50px;
 }
 
 
