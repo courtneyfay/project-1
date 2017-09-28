@@ -1,3 +1,9 @@
+STUFF TO ADD
+--Explanations of the technologies used, 
+--the approach taken, 
+--installation instructions, 
+--unsolved problems, etc.
+
 Trello board link: https://trello.com/b/IJeqbAsB/project-1-courts-quest
 
 Pinterest link: https://www.pinterest.com/faycourtney/project-1-game/

@@ -191,7 +191,8 @@ document.addEventListener('DOMContentLoaded', function() {
 				it can walk through walls and doors, but can't go through the portal. 
 				can trigger endGame() if it touches the player*/
 				if (this.type === 'enemy') {
-					if (this.isPortal(newCell, this.type)) { //TODO refine this logic because it's breaking
+					if (this.isPortal(newCell, this.type)) { 
+						//TODO refine this logic because it's breaking
 						return;
 					} else if (this.isPlayer(newCell)) {
 						let playerDiv = document.getElementsByClassName('player')[0]; 
@@ -250,7 +251,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
 			// if cellNum has a class of portal, return true, else false
 			isPortal: function(newCell, type) {
-				if (type === 'enemy') {
+				if (newCell.classList.value === 'portal') {
+						return true;
+					} else {
+						return false;
+					}
+				/*if (type === 'enemy') {
 					let checkForPortal = newCell.childNodes;
 
 					//check to make sure it's defined, then look to see if the class is portal
@@ -264,15 +270,8 @@ document.addEventListener('DOMContentLoaded', function() {
 					}
 				}
 				else if (type === 'player') {
-					console.log(type);
 					let newCellValue = newCell.classList.value;
-					//return newCellValue;
-					if (newCell.classList.value === 'portal') {
-						return true;
-					} else {
-						return false;
-					}
-				}
+				}*/
 			},
 
 			// if cellNum has a class of player, return true, else false
@@ -480,7 +479,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		createKeys();
 		createChips();
 		timerVar = setInterval(startTimer, 1000);
-		enemyVar = setInterval(startEnemy, 1000); // change back to 500 s
+		enemyVar = setInterval(startEnemy, 1000); 
    };
 
   startGame();
