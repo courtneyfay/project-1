@@ -23,9 +23,9 @@ document.addEventListener('DOMContentLoaded', function() {
 		gamePage.append(gameTitle);
 
 		// creates the right column and all the HTML elements
-		let rightColumn = document.createElement('aside');
-		rightColumn.classList.add('game-sidebar');
-		gamePage.append(rightColumn);
+		let rightGame = document.createElement('aside');
+		rightGame.classList.add('game-sidebar');
+		gamePage.append(rightGame);
 
 		// creates a key table with 1 row and 4 columns, and pushes it into hubcontentarray
 		let keyTable = document.createElement('table');
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			let hubDiv = document.createElement('div');
 			hubDiv.classList.add('sidebar-div');
 			hubDiv.innerHTML = hubTitlesArray[i];
-			rightColumn.append(hubDiv);
+			rightGame.append(hubDiv);
 			
 			// creates hub content 
 			let hubSubDiv = document.createElement('div');
@@ -66,13 +66,13 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 		
 		// creates the left column and all the HTML elements
-		let leftColumn = document.createElement('div');
-		leftColumn.classList.add('game-container');
-		gamePage.append(leftColumn);
+		let leftGame = document.createElement('div');
+		leftGame.classList.add('game-container');
+		gamePage.append(leftGame);
 
 		// add a new table inside of game-container div
 		let table = document.createElement('table');
-		leftColumn.append(table);
+		leftGame.append(table);
 
 		// create 9 new table rows and append them to the new table
 		for (let i = 0; i < 9; i++) {
@@ -487,7 +487,48 @@ document.addEventListener('DOMContentLoaded', function() {
    };
 
   function startNamePage() {
-  	console.log('I made the name page--woo!');
+
+  	let nameArray = ['David','Nick','Joe','Will','Michael','Matt'];
+
+  	// remove all the elements and styles from the character page
+  	let destroyDivNodeList= document.getElementsByTagName('div');
+  	for (let i = destroyDivNodeList.length >>> 0; i--;) {
+  		console.log(destroyDivNodeList[i]);
+  		gamePage.removeChild(destroyDivNodeList[i]);
+  	}
+  	gamePage.classList.remove('character-page-background');
+
+  	// adds a name page title across the top of the screen
+		let nameTitleDiv = document.createElement('div');
+		gamePage.append(nameTitleDiv);
+		let nameTitle = document.createElement('h1');
+		nameTitle.classList.add('name-title');
+		nameTitle.innerHTML = 'enter your name:';
+		nameTitleDiv.append(nameTitle);
+
+		// update the background photo
+		gamePage.classList.add('name-page-background');
+
+		// add a text input for username
+		let nameInput = document.createElement('input');
+		nameInput.setAttribute('type','text');
+		nameInput.setAttribute('class','name-input');
+		gamePage.append(nameInput);
+
+		// add a button to submit the user name input
+		let nameButton = document.createElement('input');
+		nameButton.setAttribute('type','submit');
+		nameButton.setAttribute('class','name-button');
+		gamePage.append(nameButton);
+		nameButton.addEventListener('click', checkName);
+
+		// checks to see if user name matches one of the values in the NameArray
+		function checkName() {
+			console.log(nameInput.attributes);
+			console.log('also names: ' + nameArray);
+			// IF it doesn't match array value, go to the next page
+			// IF it does match array value, endGame()
+		};
   }
 
   function startCharacterPage() {
@@ -511,18 +552,29 @@ document.addEventListener('DOMContentLoaded', function() {
 		gamePage.classList.add('character-page-background');
 
 		// add right column div, dog character button, and event listener
+		let rightCharacter = document.createElement('div');
+		rightCharacter.setAttribute('class','right-column');
+		gamePage.append(rightCharacter);
 		let dogButton = document.createElement('button');
 		dogButton.setAttribute('class','dog-button');
-		gamePage.append(dogButton);
+		rightCharacter.append(dogButton);
 		dogButton.addEventListener('click', startNamePage);
 
-		// add cat character button, and event listener
+		// add left column div, cat character button, and event listener
+		let leftCharacter = document.createElement('div');
+		leftCharacter.setAttribute('class','left-column');
+		gamePage.append(leftCharacter);
+		let catButton = document.createElement('button');
+		catButton.setAttribute('class','cat-button');
+		leftCharacter.append(catButton);
+		catButton.addEventListener('click', endGame);
   }
 
   function startLandingPage() {
 
   	// add a game title across the top of the screen
 		let pageTitleDiv = document.createElement('div');
+		pageTitleDiv.classList.add('game-title-div');
 		gamePage.append(pageTitleDiv);
 		let pageTitle = document.createElement('h1');
 		pageTitle.classList.add('game-title');
@@ -542,5 +594,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		startButton.addEventListener('click', startCharacterPage);
   }
 
-  startLandingPage();
+  startNamePage();
+  // startLandingPage();
 });
