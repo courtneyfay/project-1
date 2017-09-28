@@ -486,6 +486,61 @@ document.addEventListener('DOMContentLoaded', function() {
 		enemyVar = setInterval(startEnemy, 1000); 
    };
 
-  // create function to start up the landing page in HTML 
-  startGame();
+  function startNamePage() {
+  	console.log('I made the name page--woo!');
+  }
+
+  function startCharacterPage() {
+
+  	// remove all the elements and styles from the landing page
+  	let destroyDiv = document.getElementsByTagName('div')[0];
+  	gamePage.removeChild(destroyDiv);
+  	let destroyButton = document.getElementsByTagName('button')[0];
+  	gamePage.removeChild(destroyButton);
+  	gamePage.classList.remove('landing-page-background');
+
+  	// add a character page title across the top of the screen
+		let characterTitleDiv = document.createElement('div');
+		gamePage.append(characterTitleDiv);
+		let characterTitle = document.createElement('h1');
+		characterTitle.classList.add('character-title');
+		characterTitle.innerHTML = 'Choose Your Character:';
+		characterTitleDiv.append(characterTitle);
+
+		// update the background photo
+		gamePage.classList.add('character-page-background');
+
+		// add right column div, dog character button, and event listener
+		let dogButton = document.createElement('button');
+		dogButton.setAttribute('class','dog-button');
+		gamePage.append(dogButton);
+		dogButton.addEventListener('click', startNamePage);
+
+		// add cat character button, and event listener
+  }
+
+  function startLandingPage() {
+
+  	// add a game title across the top of the screen
+		let pageTitleDiv = document.createElement('div');
+		gamePage.append(pageTitleDiv);
+		let pageTitle = document.createElement('h1');
+		pageTitle.classList.add('game-title');
+		pageTitle.innerHTML = "Court's Quest";
+		pageTitleDiv.append(pageTitle);
+
+		// update the background photo
+		gamePage.classList.add('landing-page-background');
+
+		// add a button to load the next page
+		let startButton = document.createElement('button');
+		startButton.setAttribute('class','start-button');
+		startButton.innerHTML = 'Start';
+		gamePage.append(startButton);
+
+		// add an event listener for button click that takes you to the next page of the quest
+		startButton.addEventListener('click', startCharacterPage);
+  }
+
+  startLandingPage();
 });

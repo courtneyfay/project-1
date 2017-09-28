@@ -1,14 +1,14 @@
 * {
-	font-family: sans serif;
+	font-family: 'Roboto', sans-serif;
 	text-align: center;
 	color: white;
 }
 
 #container {
-	background-image: url('media/view-of-doha.jpg');
+	/*background-image: url('media/view-of-doha.jpg');
 	background-position: center;
 	background-repeat: no-repeat;
-	background-size: cover;
+	background-size: cover;*/
 	height: 97vh;
 	width: 98%;
 }
@@ -23,6 +23,7 @@
 	background-image: url('media/portal.jpg');
 	background-position: center;
 	background-size: cover;
+	box-shadow: -10px 10px 15px #525252;
  	display: inline-block;
  	float: right;
  	height: 488px;
@@ -32,9 +33,10 @@
 
 .sidebar-div {
 	background-color: #B7B3A7; 
+	box-shadow: 3px 3px 3px 1px #FBF9FC inset, -3px -3px 3px 1px #525252 inset;
 	height: 23%;
 	margin: 8% auto;
-	width: 100%;
+	width: 95%;
 }
 
 .sidebar-sub-div {
@@ -48,10 +50,12 @@
 .key-table {
 	background-color: #B7B3A7;
 	margin: 0 0 0 20%;
+	box-shadow: none;
 }
 
 table {
 	background-color: #B7B3A7;
+	box-shadow: 10px 10px 15px #525252;
 	float: left;
 	margin: 0 5%;
 }
@@ -66,12 +70,14 @@ td {
 .wall-block {
 	background-image: url('media/moroccan-tile-5.jpg');
 	background-size: cover;
+	box-shadow: 3px 3px 3px 1px #FBF9FC inset, -3px -3px 3px 1px #525252 inset; 
 }
 
 .key-door {
 	content: url('media/ancient-key.png');
 	background-image: url('media/moroccan-tile-5.jpg');
 	background-size: cover;
+	box-shadow: 3px 3px 3px 1px #FBF9FC inset, -3px -3px 3px 1px #525252 inset; 
 }
 
 .player {
@@ -107,4 +113,56 @@ td {
 	width: 50px;
 }
 
+.game-title {
+	font-size: 250px;
+	margin: 0;
+	text-shadow: 20px 20px 20px black;
+}
+
+.start-button {
+	background-image: url('media/button-carpet.jpg');
+	background-position: center;
+	background-size: cover;
+	box-shadow: 3px 3px 3px 1px #FBF9FC inset, -3px -3px 3px 1px #525252 inset; 
+	font-size: 50px;
+	height: 136px;
+	width: 200px;
+}
+
+.start-button:hover {
+	box-shadow: 5px 5px 10px #525252;
+	font-size: 60px;
+}
+
+.landing-page-background {
+	background-image: url('media/door-4.jpg');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	margin: 0 auto;
+}
+
+.character-page-background {
+	background-image: url('media/museum.jpg');
+	background-size: cover;
+}
+
+.character-title {
+	font-size: 100px;
+	margin: 0;
+	text-shadow: 10px 10px 20px black;
+}
+
+.dog-button {
+	background-color: white;
+	background-image: url('media/dog-2.png');
+	background-size: cover;
+	box-shadow: none;
+	height: 200px;
+	width: 200px;
+}
+
+.cat-button {
+
+}
 
