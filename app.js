@@ -486,9 +486,20 @@ document.addEventListener('DOMContentLoaded', function() {
 		enemyVar = setInterval(startEnemy, 1000); 
    };
 
+  function startWeaponPage() {
+  	console.log('now Im on the weapon page');
+
+  	// remove all the elements and styles from the name page
+  	let destroyNameDiv = document.getElementsByTagName('div');
+  	console.log(destroyNameDiv);
+		/*gamePage.removeChild(destroyNameDiv);
+  	gamePage.classList.remove('name-page-background');	
+  	}*/
+  };
+
   function startNamePage() {
 
-  	let nameArray = ['David','Nick','Joe','Will','Michael','Matt'];
+  	let nameArray = ['david','nick','joe','will','michael','matt'];
 
   	// remove all the elements and styles from the character page
   	let destroyDivNodeList= document.getElementsByTagName('div');
@@ -524,10 +535,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		// checks to see if user name matches one of the values in the NameArray
 		function checkName() {
-			console.log(nameInput.attributes);
-			console.log('also names: ' + nameArray);
-			// IF it doesn't match array value, go to the next page
-			// IF it does match array value, endGame()
+			let nameInputValue = nameInput.value.toLowerCase();;
+			
+			for (let i = 0; i < nameArray.length; i++) {
+				if (nameInputValue === nameArray[i]) {
+					endGame();
+				} 
+			}
+
+			// save name into user variable REMOVE TOLOWERCASE()
+			startWeaponPage();
 		};
   }
 
@@ -545,7 +562,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		gamePage.append(characterTitleDiv);
 		let characterTitle = document.createElement('h1');
 		characterTitle.classList.add('character-title');
-		characterTitle.innerHTML = 'Choose Your Character:';
+		characterTitle.innerHTML = 'choose your character:';
 		characterTitleDiv.append(characterTitle);
 
 		// update the background photo
@@ -578,7 +595,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		gamePage.append(pageTitleDiv);
 		let pageTitle = document.createElement('h1');
 		pageTitle.classList.add('game-title');
-		pageTitle.innerHTML = "Court's Quest";
+		pageTitle.innerHTML = "Court's quest";
 		pageTitleDiv.append(pageTitle);
 
 		// update the background photo
@@ -595,5 +612,5 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   startNamePage();
-  // startLandingPage();
+  //startLandingPage();
 });
