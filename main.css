@@ -1,69 +1,70 @@
 * {
-
+	font-family: sans serif;
+	text-align: center;
+	color: white;
 }
 
-.game-page {
-	margin: 1%;
+#container {
+	background-image: url('media/view-of-doha.jpg');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	height: 97vh;
+	width: 98%;
 }
 
 .game-container {
-	background-color: pink;
 	float: left;
-	height: 97vh;
-	width: 64%;
+	height: 50vh;
+	width: 60%;
 }
 
 .game-sidebar {
- 	background-color: yellow;
+	background-image: url('media/portal.jpg');
+	background-position: center;
+	background-size: cover;
  	display: inline-block;
  	float: right;
- 	height: 97vh;
-	width: 35%;
+ 	height: 488px;
+ 	margin: 0 5% 0 0;
+	width: 33%;
 }
 
 .sidebar-div {
-	background-color: cyan;
-	border: 1px solid grey;
-	clear: both;
-	height: 20%;
-	left: 4%;
-	margin: 3%;
-	position: relative;
-	text-align: center;
-	top: 3%;
-	width: 80%;
+	background-color: #B7B3A7; 
+	height: 23%;
+	margin: 8% auto;
+	width: 100%;
 }
 
 .sidebar-sub-div {
-	/*background-color: white;*/
+	background-color: #B7B3A7; 
+	font-size: 24px;
 	height: 20%;
-	left: 4%;
-	position: relative;
-	top: 3%;
+	margin: 0 auto;
 	width: 80%;
 }
 
 .key-table {
-	background-color: grey;
+	background-color: #B7B3A7;
+	margin: 0 0 0 20%;
 }
 
 table {
-	background-color: grey;
-	margin: 0 auto;
+	background-color: #B7B3A7;
+	float: left;
+	margin: 0 5%;
 }
 
 td {
 	background-image: url('media/moroccan-tile-4.jpg');
-	/*background-image: url('media/floor.png');*/
 	background-size: cover;
 	height: 50px;
-	text-align: center;
 	width: 50px;
 }
 
 .wall-block {
 	background-image: url('media/moroccan-tile-5.jpg');
-	/*background-image: url('media/wallblock.png');*/
 	background-size: cover;
 }
 
@@ -71,55 +72,26 @@ td {
 	content: url('media/ancient-key.png');
 	background-image: url('media/moroccan-tile-5.jpg');
 	background-size: cover;
-	/*background-image: url('media/keydoorRed.png');
-	background-size: cover;*/
 }
 
 .player {
-	background-image: url('media/player.png');
+	background-image: url('media/thobe-player.png');
 	background-size: cover;
 	height: 100%;
-	margin: 0;
-	width: 100%;
+	margin: 0 auto;
+	width: 50%;
 }
 
 .key {
 	content: url('media/ancient-key.png');
-	/*background-image: url('media/keyRed.png');*/
-	/*background-size: cover;*/
 }
 
 .chip {
-	position: absolute;
-	width: 48px;
-	height: 48px;
 	content: url('media/genie-lamp-3.png');
-	/*background-size: contain;*/
-	/*background-image: url('media/computerchip.png');
-	background-size: cover;*/
-	/*content: url('media/genie-lamp-2.png');*/
-	/*background-color: red;
-	clear: both;
-	display: block;
-	height: 40px;
-	width: 40px;*/
-	/*height: 90%;
-	width: 90%;*/
-	/*transform:; scale(.5);*/
-	/*clear: both;*/
-	/*display: inline-block;
-	height: 50px;
-	width: 50px;
-	background-image: url('media/genie-lamp-3.png');
-	background-size: 50px;*/
 }
 
 .portal-door {
 	content: url('media/portal-door.png');
-	/*background-image: url('media/portaldoor.png');
-	background-size: cover;
-	height: 50px;
-	width: 50px;*/
 }
 
 .portal {
@@ -131,8 +103,6 @@ td {
 
 .enemy {
 	content: url('media/djinn.png');
-	/*background-image: url('media/pacman.png');
-	background-size: cover;*/
 	height: 50px;
 	width: 50px;
 }

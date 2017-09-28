@@ -1,15 +1,13 @@
-// TODO: create a 9x9 grid using JS
-
 document.addEventListener('DOMContentLoaded', function() {
   console.log('js is loaded!');
 
 	// global variables
-	let gamePage = document.getElementById('game-page');
+	let gamePage = document.getElementById('container');
 	let hubContentArray = [100,7];
 	let wallBlocksArray = [2,3,4,8,11,13,17,18,19,20,22,23,24,25,26,27,33,36,42,45,51,52,53,54,60,63,69,72,73,74,75,76,77,78,79,80];
 	let keyArray = [0,7,32,62];
 	let keyDoorsArray = [19,23,42,69];
-	let chipArray = [1,15,35,37,41,67,71];
+	let chipArray = [10,15,35,37,50,67,71];
 	let enemy;
 	let timerVar;
 	let enemyVar;
@@ -19,6 +17,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	function createBoard() {
 
+		// add a game title across the top of the screen
+		let gameTitle = document.createElement('div');
+		gameTitle.innerHTML = '<h1>dunDjinn</h1>';
+		gamePage.append(gameTitle);
+
 		// creates the right column and all the HTML elements
 		let rightColumn = document.createElement('aside');
 		rightColumn.classList.add('game-sidebar');
@@ -27,6 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		// creates a key table with 1 row and 4 columns, and pushes it into hubcontentarray
 		let keyTable = document.createElement('table');
 		keyTable.classList.add('key-table');
+		keyTable.setAttribute('align', "center");
 		hubContentArray.push(keyTable);
 
 		for (let i = 0; i < 1; i++) {
@@ -42,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 		
 		// adds divs to the right aside and adds classes to style them
-		let hubTitlesArray = ['Timer', 'Chips Left', 'Keys'];
+		let hubTitlesArray = ['<h1>Timer</h1>', '<h1>Lamps Left</h1>', '<h1>Keys</h1>'];
 		for (let i = 0; i < 3; i++) {
 			// creates hub titles
 			let hubDiv = document.createElement('div');
@@ -482,5 +486,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		enemyVar = setInterval(startEnemy, 1000); 
    };
 
+  // create function to start up the landing page in HTML 
   startGame();
 });
