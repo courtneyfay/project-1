@@ -28,9 +28,28 @@ document.addEventListener('DOMContentLoaded', function() {
   	clearInterval(timerVar);
   	clearInterval(enemyVar);
   	gamePage.classList.remove('game-page-background');
-  	if (page !== 'dead') {
-	  	return;
-	  }
+  	if (page === 'dead') {
+  		console.log('clear-game' + page);
+  	} else {
+  		return;
+  	}
+	};
+
+	function startWinPage() {
+
+		/*clearFinalBossPage();*/
+
+		// adds a win page memo
+		let winDiv = document.createElement('div');
+		gamePage.append(winDiv);
+		let winTitle = document.createElement('h1');
+		winTitle.classList.add('win-title');
+		winTitle.innerHTML = 'Thank you, [name]. Your application is being processed.';
+		winDiv.append(winTitle);
+
+		// update the background photo
+		gamePage.classList.add('win-page-background');
+
 	};
 
 	function startFinalBossPage() {
@@ -39,6 +58,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		clearGamePage(currentPage);
   	
   	//add new elements
+
+  	startWinPage();
   	
   }
 
@@ -49,9 +70,11 @@ document.addEventListener('DOMContentLoaded', function() {
   		gamePage.removeChild(destroyDaDivsNodeList[i]);
   	}
   	gamePage.classList.remove('weapon-page-background');
-  	if (page !== 'dead') {
-	  	return;
-	  }
+  	if (page === 'dead') {
+  		console.log('clear-weapon' + page);
+  	} else {
+  		return;
+  	}
 	};
 
 	function createBoard() {
@@ -527,16 +550,40 @@ document.addEventListener('DOMContentLoaded', function() {
   };
 
   function startDeathVideo(page) {
-  	// let video = gamePage.createElement('video');
-  	// video.src = 'media/videolink.mp4';
-  	// video.autoplay = true;
+  	// add HTML video player
+  	let video = gamePage.createElement('video');
+  	let src;
 
-  	// use page variable for if
-  	// if cat button, play Littlefinger
-  	// if name, play Joffrey
-  	// if fishing pole, play Viserys
-  	// if dunDjinn, play Tommen
-  	// if final boss, play Ygritte
+  	// use currentPage variable to figure out which video to set as src
+  	// video.src = 'media/videolink.mp4';
+  	switch(page) {
+  		case 'character':
+  			src = 'media/videolink.mp4';
+  			console.log('cat button, play littlefinger');
+  			break;
+  		case 'name':
+  			src = 'media/videolink.mp4';
+  			console.log('name, play Joffrey');
+  			break;
+  		case 'weapon':
+  			src = 'media/videolink.mp4';
+  			console.log('fishing pole, play Viserys');
+  			break;
+  		case 'game':
+  			src = 'media/videolink.mp4';
+  			console.log('dunDjinn, play Tommen');
+  			break;
+  		// if final boss, play Ygritte
+  		// Ygritte. https://www.youtube.com/watch?v=qDTOc_oUFHU. 3:26 - 3:36
+  		default:
+  			console.log('death video logic is broken'); 
+  	}
+
+  	video.autoplay = true;
+
+  	// after death video plays, add a "Game over" h1 element
+
+  	// under Game Over splash, make a button appear that calls startLandingPage();
   };
 
   function endGame() {
@@ -544,15 +591,28 @@ document.addEventListener('DOMContentLoaded', function() {
   	clearInterval(timerVar);
   	clearInterval(enemyVar);
 
-  	// figure out how to clear the elements for each page -- maybe create a bunch of new functions?
-  	// clearGamePage();
-  	// clearWeaponPage();
-  	// clearNamePage();
-  	// clearCharacterPage();
-  	// clearLandingPage();
+  	// clear whichever HTML elements are on the page
+  	switch(currentPage) {
+  		case 'landing':
+  			clearLandingPage();
+  			break;
+  		case 'character':
+  			clearCharacterPage();
+  			break;
+  		case 'name':
+  			clearNamePage();
+  			break;
+  		case 'weapon':
+  			clearWeaponPage();
+  			break;
+  		case 'game':
+  			clearGamePage();
+  			break;
+  		default:
+  			console.log('clear previous page not working!!');
+  	}
 
-  	// add a parameter that tells it which video to play
-
+  	// use the currentPage parameter to tell function which death video to play
   	startDeathVideo(currentPage);
   };
 
@@ -576,9 +636,11 @@ document.addEventListener('DOMContentLoaded', function() {
   	}
   	gamePage.classList.remove('name-page-background');	
   	
-  	if (page !== 'dead') {
-	  	return;
-	  }
+  	if (page === 'dead') {
+  		console.log('clear-name' + page);
+  	} else {
+  		return;
+  	}
   };
 
   function startWeaponPage() {
@@ -634,7 +696,9 @@ document.addEventListener('DOMContentLoaded', function() {
   	}
   	gamePage.classList.remove('character-page-background');
   	
-		if (page !== 'dead') {
+		if (page === 'dead') {
+  		console.log('clear-character' + page);
+  	} else {
   		return;
   	}
   };
@@ -692,7 +756,9 @@ document.addEventListener('DOMContentLoaded', function() {
   	let destroyButton = document.getElementsByTagName('button')[0];
   	gamePage.removeChild(destroyButton);
   	gamePage.classList.remove('landing-page-background');
-  	if (page !== 'dead') {
+  	if (page === 'dead') {
+  		console.log('clear-landing' + page);
+  	} else {
   		return;
   	}
   };
