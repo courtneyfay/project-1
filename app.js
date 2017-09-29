@@ -14,34 +14,50 @@ document.addEventListener('DOMContentLoaded', function() {
 	let chipsLeft;
 	let tdArray = [];
 	let keysCollectedArray = [];
+	let currentPage; 
 
-	function startFinalBossPage() {
-  	console.log('made it to the final page!');
-
-  	// remove all the elements and styles from the character page
+	function clearGamePage(page) {
+		// remove all the elements and styles from the character page
   	let destroyMoreDivsNodeList= document.getElementsByTagName('div');
-  	
-		console.log(destroyMoreDivsNodeList);
 
   	for (let i = destroyMoreDivsNodeList.length >>> 0; i--;) {
   		if (destroyMoreDivsNodeList[i].parentNode === gamePage) {
   			gamePage.removeChild(destroyMoreDivsNodeList[i]);
   		}  		
   	};
+  	clearInterval(timerVar);
+  	clearInterval(enemyVar);
   	gamePage.classList.remove('game-page-background');
+  	if (page !== 'dead') {
+	  	return;
+	  }
+	};
+
+	function startFinalBossPage() {
+
+		currentPage = 'boss';
+		clearGamePage(currentPage);
   	
   	//add new elements
   	
   }
 
-	function createBoard() {
-
+	function clearWeaponPage(page) {
 		// remove all the elements and styles from the weapon page
   	let destroyDaDivsNodeList = document.getElementsByTagName('div');
 		for (let i = destroyDaDivsNodeList.length >>> 0; i--;) {
   		gamePage.removeChild(destroyDaDivsNodeList[i]);
   	}
   	gamePage.classList.remove('weapon-page-background');
+  	if (page !== 'dead') {
+	  	return;
+	  }
+	};
+
+	function createBoard() {
+
+		currentPage = 'game';
+		clearWeaponPage(currentPage);
 
   	// update the background photo
 		gamePage.classList.add('game-page-background');
@@ -163,7 +179,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			this.element = document.createElement('div');
 		};
 
-		// prototype method for the Character object: create(), checkDirection(), randomDirection(), move(), isWall(), isDoor(), 
+		// prototype method for the Character object: create(), checkDirection(), randomDirection(), stop(), move(), isWall(), isDoor(), 
 		// isPortalDoor(), isPortal(), collect(), isKey(), isChip(), decrementChips(), isLocked(), updateKeyLocker(), openPortalDoor()
 		Character.prototype = {
 
@@ -211,6 +227,19 @@ document.addEventListener('DOMContentLoaded', function() {
 				let randomDir = directionArray[Math.floor(Math.random() * directionArray.length)];		
 				this.move(randomDir);
 			},
+
+			/*stop: function() {
+				console.log('I am trying to stop the genie');
+				for (let i = 0; i < tdArray.length; i++) {
+					console.log(tdArray[i].classList);
+					if (tdArray[i].classList === 'enemy') {
+						console.log('we found the genie!' + tdArray[i]);
+					}
+				};
+				//(name === 'djinn') {
+					//characterCell = tdArray[65];
+					//this.element.classList.add('enemy');
+			},*/
 
 			// actually moves the character however many spaces they need to go
 			move: function(direction) {
@@ -495,13 +524,37 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function startEnemy() {
   	enemy.randomDirection();
-  }
+  };
+
+  function startDeathVideo(page) {
+  	// let video = gamePage.createElement('video');
+  	// video.src = 'media/videolink.mp4';
+  	// video.autoplay = true;
+
+  	// use page variable for if
+  	// if cat button, play Littlefinger
+  	// if name, play Joffrey
+  	// if fishing pole, play Viserys
+  	// if dunDjinn, play Tommen
+  	// if final boss, play Ygritte
+  };
 
   function endGame() {
-  	alert('GAME OVER!');
+  	console.log('GAME OVER!');
   	clearInterval(timerVar);
   	clearInterval(enemyVar);
-  }
+
+  	// figure out how to clear the elements for each page -- maybe create a bunch of new functions?
+  	// clearGamePage();
+  	// clearWeaponPage();
+  	// clearNamePage();
+  	// clearCharacterPage();
+  	// clearLandingPage();
+
+  	// add a parameter that tells it which video to play
+
+  	startDeathVideo(currentPage);
+  };
 
   function startGame() {
   	createBoard();
@@ -512,7 +565,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		enemyVar = setInterval(startEnemy, 1000); 
    };
 
-  function startWeaponPage() {
+  function clearNamePage(page) {
 
   	// remove all the elements and styles from the name page
   	let destroyNameDiv = document.getElementsByTagName('div')[0];
@@ -522,6 +575,16 @@ document.addEventListener('DOMContentLoaded', function() {
   		gamePage.removeChild(destroyInputsNodeList[i]);
   	}
   	gamePage.classList.remove('name-page-background');	
+  	
+  	if (page !== 'dead') {
+	  	return;
+	  }
+  };
+
+  function startWeaponPage() {
+
+  	currentPage = 'weapon';
+		clearNamePage(currentPage);  	
 
   	// adds a weapon page title across the top of the screen
 		let weaponTitleDiv = document.createElement('div');
@@ -562,9 +625,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		carabinerButton.addEventListener('click', startGame);
   };
 
-  function startNamePage() {
-
-  	let nameArray = ['david','nick','joe','will','michael','matt'];
+  function clearCharacterPage(page) {
 
   	// remove all the elements and styles from the character page
   	let destroyDivNodeList= document.getElementsByTagName('div');
@@ -572,6 +633,18 @@ document.addEventListener('DOMContentLoaded', function() {
   		gamePage.removeChild(destroyDivNodeList[i]);
   	}
   	gamePage.classList.remove('character-page-background');
+  	
+		if (page !== 'dead') {
+  		return;
+  	}
+  };
+
+  function startNamePage() {
+
+  	let nameArray = ['david','nick','joe','will','michael','matt'];
+
+  	currentPage = 'name';
+  	clearCharacterPage(currentPage);
 
   	// adds a name page title across the top of the screen
 		let nameTitleDiv = document.createElement('div');
@@ -612,14 +685,22 @@ document.addEventListener('DOMContentLoaded', function() {
 		};
   }
 
-  function startCharacterPage() {
-
+  function clearLandingPage(page) {
   	// remove all the elements and styles from the landing page
   	let destroyDiv = document.getElementsByTagName('div')[0];
   	gamePage.removeChild(destroyDiv);
   	let destroyButton = document.getElementsByTagName('button')[0];
   	gamePage.removeChild(destroyButton);
   	gamePage.classList.remove('landing-page-background');
+  	if (page !== 'dead') {
+  		return;
+  	}
+  };
+
+  function startCharacterPage() {
+
+  	currentPage = 'character';
+  	clearLandingPage(currentPage);
 
   	// add a character page title across the top of the screen
 		let characterTitleDiv = document.createElement('div');
@@ -653,6 +734,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function startLandingPage() {
 
+  	currentPage = 'landing';
+
   	// add a game title across the top of the screen
 		let pageTitleDiv = document.createElement('div');
 		pageTitleDiv.classList.add('game-title-div');
@@ -675,6 +758,5 @@ document.addEventListener('DOMContentLoaded', function() {
 		startButton.addEventListener('click', startCharacterPage);
   }
 
-  //startWeaponPage();
   startLandingPage();
 });
