@@ -16,6 +16,7 @@
 }
 
 .game-container {
+	background-image: url('media/mosque.jpg');
 	float: left;
 	height: 50vh;
 	width: 60%;
@@ -208,11 +209,11 @@ td {
 }
 
 .name-title {
-	background-color: rgba(82,39,38,0.5); /*23,156,162,*/
+	background-color: rgba(82,39,38,0.5); 
 	font-size: 100px;
 	margin: 0;
 	padding: 3%;
-	text-shadow: 5px 5px 10px #522726; /*#179CA2*/
+	text-shadow: 5px 5px 10px #522726; 
 }
 
 .name-input {
@@ -242,3 +243,81 @@ td {
 	box-shadow: 5px 5px 10px #525252;
 	font-size: 60px;
 }
+
+.weapon-title {
+	background-color: rgba(92,36,19,.8); 
+	font-size: 100px;
+	margin: 0;
+	padding: 3%;
+	text-shadow: 10px 10px 10px #252E51; 
+}
+
+.weapon-page-background {
+	background-image: url('media/moroccan-tile-8.jpg');
+	background-repeat: repeat-x repeat-y;
+}
+
+.right-column-weapon {
+	clear: both;
+	float: right;
+	height: 70vh;
+	width: 32%;
+}
+
+.middle-column-weapon {
+	display: inline-block;
+	height: 70vh;
+	margin: 0 auto;
+	width: 32%;
+}
+
+.left-column-weapon {
+	float: left;
+	height: 70vh;
+	margin: 0 auto;
+	width: 32%;
+}
+
+.carabiner-button {
+	background-color: rgba(92,36,19,.8);
+	background-image: url('media/carabiner-2.png');
+	background-size: cover;
+	box-shadow: 2px 2px 2px 1px #FBF9FC inset, -2px -2px 2px 1px #525252 inset; 
+	height: 80%;
+	margin: 10% auto;
+	width: 300px;
+}
+
+.carabiner-button:hover {
+	box-shadow: 5px 5px 10px #121744;
+}
+
+.book-button {
+	background-color: rgba(92,36,19,.8);
+	background-image: url('media/book-2.png');
+	background-size: cover;
+	box-shadow: 2px 2px 2px 1px #FBF9FC inset, -2px -2px 2px 1px #525252 inset; 
+	height: 60%;
+	margin: 25% auto;
+	width: 400px;
+}
+
+.book-button:hover {
+	box-shadow: 5px 5px 10px #121744;
+}
+
+.fishing-pole-button {
+	background-color: rgba(92,36,19,.8);
+	background-image: url('media/fishing-pole.png');
+	background-size: cover;
+	box-shadow: 2px 2px 2px 1px #FBF9FC inset, -2px -2px 2px 1px #525252 inset; 
+	height: 65%;
+	margin: 25% auto;
+	width: 400px;
+}
+
+.fishing-pole-button:hover {
+	box-shadow: 5px 5px 10px #121744;
+}
+
+

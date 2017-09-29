@@ -17,6 +17,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	function createBoard() {
 
+		// remove all the elements and styles from the weapon page
+  	let destroyDaDivsNodeList = document.getElementsByTagName('div');
+		for (let i = destroyDaDivsNodeList.length >>> 0; i--;) {
+  		gamePage.removeChild(destroyDaDivsNodeList[i]);
+  	}
+  	gamePage.classList.remove('weapon-page-background');
+
 		// add a game title across the top of the screen
 		let gameTitle = document.createElement('div');
 		gameTitle.innerHTML = '<h1>dunDjinn</h1>';
@@ -487,14 +494,53 @@ document.addEventListener('DOMContentLoaded', function() {
    };
 
   function startWeaponPage() {
-  	console.log('now Im on the weapon page');
 
   	// remove all the elements and styles from the name page
-  	let destroyNameDiv = document.getElementsByTagName('div');
-  	console.log(destroyNameDiv);
-		/*gamePage.removeChild(destroyNameDiv);
+  	let destroyNameDiv = document.getElementsByTagName('div')[0];
+  	gamePage.removeChild(destroyNameDiv);
+  	let destroyInputsNodeList = document.getElementsByTagName('input');
+		for (let i = destroyInputsNodeList.length >>> 0; i--;) {
+  		gamePage.removeChild(destroyInputsNodeList[i]);
+  	}
   	gamePage.classList.remove('name-page-background');	
-  	}*/
+
+  	// adds a weapon page title across the top of the screen
+		let weaponTitleDiv = document.createElement('div');
+		gamePage.append(weaponTitleDiv);
+		let weaponTitle = document.createElement('h1');
+		weaponTitle.classList.add('weapon-title');
+		weaponTitle.innerHTML = 'choose your weapon:';
+		weaponTitleDiv.append(weaponTitle);
+
+		// update the background photo
+		gamePage.classList.add('weapon-page-background');
+
+		// add right column div, book weapon button, and event listener
+		let rightWeapon = document.createElement('div');
+		rightWeapon.setAttribute('class','right-column-weapon');
+		gamePage.append(rightWeapon);
+		let bookButton = document.createElement('button');
+		bookButton.setAttribute('class','book-button');
+		rightWeapon.append(bookButton);
+		bookButton.addEventListener('click', startGame);
+
+		// add left column div, fishing pole weapon button, and event listener
+		let leftWeapon = document.createElement('div');
+		leftWeapon.setAttribute('class','left-column-weapon');
+		gamePage.append(leftWeapon);
+		let fishingPoleButton = document.createElement('button');
+		fishingPoleButton.setAttribute('class','fishing-pole-button');
+		leftWeapon.append(fishingPoleButton);
+		fishingPoleButton.addEventListener('click', endGame);
+
+		// add middle column div, carabiner weapon button, and event listener
+		let middleWeapon = document.createElement('div');
+		middleWeapon.setAttribute('class','middle-column-weapon');
+		gamePage.append(middleWeapon);
+		let carabinerButton = document.createElement('button');
+		carabinerButton.setAttribute('class','carabiner-button');
+		middleWeapon.append(carabinerButton);
+		carabinerButton.addEventListener('click', startGame);
   };
 
   function startNamePage() {
@@ -504,7 +550,6 @@ document.addEventListener('DOMContentLoaded', function() {
   	// remove all the elements and styles from the character page
   	let destroyDivNodeList= document.getElementsByTagName('div');
   	for (let i = destroyDivNodeList.length >>> 0; i--;) {
-  		console.log(destroyDivNodeList[i]);
   		gamePage.removeChild(destroyDivNodeList[i]);
   	}
   	gamePage.classList.remove('character-page-background');
@@ -611,6 +656,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		startButton.addEventListener('click', startCharacterPage);
   }
 
-  startNamePage();
-  //startLandingPage();
+  //startWeaponPage();
+  startLandingPage();
 });
