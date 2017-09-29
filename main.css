@@ -1,7 +1,8 @@
 * {
-	font-family: 'Psuedo Saudi', 'Roboto', sans-serif;
-	text-align: center;
 	color: white;
+	font-family: 'Psuedo Saudi', 'Roboto', sans-serif;
+	letter-spacing: 8px;
+	text-align: center;
 }
 
 @font-face {
@@ -15,8 +16,11 @@
 	width: 98%;
 }
 
+h1 {
+	margin: 0;
+}
+
 .game-container {
-	background-image: url('media/mosque.jpg');
 	float: left;
 	height: 50vh;
 	width: 60%;
@@ -37,6 +41,7 @@
 .sidebar-div {
 	background-color: #B7B3A7; 
 	box-shadow: 3px 3px 3px 1px #FBF9FC inset, -3px -3px 3px 1px #525252 inset;
+	font-size: 30px;
 	height: 23%;
 	margin: 8% auto;
 	width: 95%;
@@ -320,4 +325,13 @@ td {
 	box-shadow: 5px 5px 10px #121744;
 }
 
+.game-page-background {
+	background-image: url('media/mosque.jpg');
+	background-position: center;
+}
+
+.game-page-title {
+	font-size: 50px;
+	margin: 0;
+}
 

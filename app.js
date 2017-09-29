@@ -15,6 +15,25 @@ document.addEventListener('DOMContentLoaded', function() {
 	let tdArray = [];
 	let keysCollectedArray = [];
 
+	function startFinalBossPage() {
+  	console.log('made it to the final page!');
+
+  	// remove all the elements and styles from the character page
+  	let destroyMoreDivsNodeList= document.getElementsByTagName('div');
+  	
+		console.log(destroyMoreDivsNodeList);
+
+  	for (let i = destroyMoreDivsNodeList.length >>> 0; i--;) {
+  		if (destroyMoreDivsNodeList[i].parentNode === gamePage) {
+  			gamePage.removeChild(destroyMoreDivsNodeList[i]);
+  		}  		
+  	};
+  	gamePage.classList.remove('game-page-background');
+  	
+  	//add new elements
+  	
+  }
+
 	function createBoard() {
 
 		// remove all the elements and styles from the weapon page
@@ -24,13 +43,17 @@ document.addEventListener('DOMContentLoaded', function() {
   	}
   	gamePage.classList.remove('weapon-page-background');
 
+  	// update the background photo
+		gamePage.classList.add('game-page-background');
+
 		// add a game title across the top of the screen
 		let gameTitle = document.createElement('div');
-		gameTitle.innerHTML = '<h1>dunDjinn</h1>';
+		gameTitle.innerHTML = '<h1>dun  Djinn</h1>';
+		gameTitle.classList.add('game-page-title');
 		gamePage.append(gameTitle);
 
 		// creates the right column and all the HTML elements
-		let rightGame = document.createElement('aside');
+		let rightGame = document.createElement('div');
 		rightGame.classList.add('game-sidebar');
 		gamePage.append(rightGame);
 
@@ -225,7 +248,9 @@ document.addEventListener('DOMContentLoaded', function() {
 					} else if (this.isDoor(newCell)) {
 						this.isLocked(newCell);
 					} else if (this.isPortal(newCell)) {
-						levelUp();
+						let portal = document.getElementsByClassName('portal')[0];
+						portal.classList.remove('portal');
+						startFinalBossPage();
 					} else {
 						this.collect(newCell);
 						newCell.append(this.element);
@@ -476,12 +501,6 @@ document.addEventListener('DOMContentLoaded', function() {
   	alert('GAME OVER!');
   	clearInterval(timerVar);
   	clearInterval(enemyVar);
-  }
-
-  function levelUp() {
-  	let portal = document.getElementsByClassName('portal')[0];
-		portal.classList.remove('portal');
-  	endGame();
   }
 
   function startGame() {
