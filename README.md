@@ -11,6 +11,7 @@ Installation instructions:
 --link to gh pages!!
 
 Unsolved problems:
+--reset button messes up the game on the next round!
 --djinn disappears when she floats over a key or magic lamp
 
 Trello board link: https://trello.com/b/IJeqbAsB/project-1-courts-quest

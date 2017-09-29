@@ -348,4 +348,28 @@ td {
 	margin: 0 auto;
 }
 
+.game-over-title {
+	background-color: black;
+	font-size: 300px;
+}
+
+.game-over-background {
+	background-color: black;
+}
+
+.reset-button {
+	background-image: url('media/button-carpet.jpg');
+	background-position: center;
+	background-size: cover;
+	box-shadow: 6px 6px 6px 2px #FBF9FC inset, -6px -6px 6px 2px #525252 inset; 
+	font-size: 80px;
+	letter-spacing: 1px;
+	height: 204px;
+	width: 300px;
+}
+
+.reset-button:hover {
+	box-shadow: 5px 5px 10px #525252;
+	font-size: 90px;
+}
 

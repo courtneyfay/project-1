@@ -547,47 +547,78 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function startEnemy() {
   	enemy.randomDirection();
+  };	
+
+  function clearResetPage() {
+  	// remove div and button
+  	let destroyGameOver = document.getElementsByTagName('h1')[0];
+  	console.log(destroyGameOver);
+  	gamePage.removeChild(destroyGameOver);
+  	let destroyResetButton = document.getElementsByTagName('button')[0];
+  	console.log(destroyResetButton);
+  	gamePage.removeChild(destroyResetButton);
+
+  	// clear background 
+		gamePage.classList.remove('game-over-background');
+
+		// would be better to call startLandingPage();
+		location.reload();
+  }
+
+  function startResetPage() {
+  	// after death video plays, clear video player from page
+  	let destroyVideo = document.getElementsByTagName('video')[0];
+  	gamePage.removeChild(destroyVideo);
+
+  	// add a "Game over" h1 element
+  	let gameOverTitle = document.createElement('h1');
+  	gameOverTitle.classList.add('game-over-title');
+  	gameOverTitle.innerHTML = 'YOU DIED';
+  	gamePage.append(gameOverTitle);
+
+  	// under Game Over splash, make a button appear 
+  	let resetButton = document.createElement('button');
+  	resetButton.setAttribute('class','reset-button');
+  	resetButton.innerHTML = 'try again?';
+  	gamePage.append(resetButton);
+
+  	// add an event listener for button click that takes you to the FIRST page of the quest
+		resetButton.addEventListener('click', clearResetPage);
   };
 
   function startDeathVideo(page) {
+  	// add black background
+  	gamePage.classList.add('game-over-background');
+
   	// add HTML video player
-  	let video = gamePage.createElement('video');
-  	let src;
+  	let video = document.createElement('video');
+  	gamePage.append(video);
 
   	// use currentPage variable to figure out which video to set as src
-  	// video.src = 'media/videolink.mp4';
   	switch(page) {
   		case 'character':
-  			src = 'media/videolink.mp4';
-  			console.log('cat button, play littlefinger');
+  			video.src = 'media/littlefinger.mp4';
   			break;
   		case 'name':
-  			src = 'media/videolink.mp4';
-  			console.log('name, play Joffrey');
+  			video.src = 'media/joffrey.mp4';
   			break;
   		case 'weapon':
-  			src = 'media/videolink.mp4';
-  			console.log('fishing pole, play Viserys');
+  			video.src = 'media/viserys.mp4';
   			break;
   		case 'game':
-  			src = 'media/videolink.mp4';
-  			console.log('dunDjinn, play Tommen');
+  			video.src = 'media/tommen.mp4';
   			break;
   		// if final boss, play Ygritte
   		// Ygritte. https://www.youtube.com/watch?v=qDTOc_oUFHU. 3:26 - 3:36
   		default:
   			console.log('death video logic is broken'); 
   	}
-
   	video.autoplay = true;
 
-  	// after death video plays, add a "Game over" h1 element
-
-  	// under Game Over splash, make a button appear that calls startLandingPage();
+  	setTimeout(startResetPage,7000);
   };
 
   function endGame() {
-  	console.log('GAME OVER!');
   	clearInterval(timerVar);
   	clearInterval(enemyVar);
 
