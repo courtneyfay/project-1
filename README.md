@@ -1,18 +1,25 @@
 Technologies used:
---HTML (very little)
-	--Form input
+--HTML (very little) -->Form input<--
 --CSS
 --Vanilla JS
+--Pinterest for design images
+--DaFont.com
+--Trello for feature/task organization
 
 Approach taken:
---  
+--game solves a problem
+--quest-style game
+--design as inspired by the Museum of Islamic Art, Doha
+--actual game play based on Chip's Challenge
 
 Installation instructions:
---link to gh pages!!
+--GH Pages link: https://courtneyfay.github.io/project-1/index.html
 
 Unsolved problems:
 --reset button messes up the game on the next round!
 --djinn disappears when she floats over a key or magic lamp
+
+------------------------------------------------------------------------
 
 Trello board link: https://trello.com/b/IJeqbAsB/project-1-courts-quest
 
