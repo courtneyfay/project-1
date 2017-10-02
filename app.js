@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	let keysCollectedArray = [];
 	let tdArray = [];
 	let currentPage; 
+	let nameInputValue;
 
 	// constructor function to create unique Pages 
 	/*function Page() {
@@ -164,15 +165,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		// checks to see if user name matches one of the values in the NameArray
 		function checkName() {
-			let nameInputValue = nameInput.value.toLowerCase();;
-			
+			nameInputValue = nameInput.value;
+			// let nameInputValue = nameInput.value.toLowerCase();
 			for (let i = 0; i < nameArray.length; i++) {
-				if (nameInputValue === nameArray[i]) {
+				if (nameInputValue.toLowerCase() === nameArray[i]) {
 					endGame();
 				} 
 			}
 
-			// save name into user variable REMOVE TOLOWERCASE()
 			startWeaponPage();
 		};
   };
@@ -907,7 +907,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		gamePage.append(winDiv);
 		let winTitle = document.createElement('h1');
 		winTitle.classList.add('win-title');
-		winTitle.innerHTML = 'Thank you, [name]. Your application is being processed.';
+		winTitle.innerHTML = 'Thank you, ' + nameInputValue + '. Your application is being processed.';
 		winDiv.append(winTitle);
 
 		// update the background photo
