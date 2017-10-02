@@ -1,3 +1,6 @@
+
+/* Styles all pages within the website */
+
 * {
 	color: white;
 	font-family: 'Psuedo Saudi', 'Roboto', sans-serif;
@@ -20,47 +23,6 @@ h1 {
 	margin: 0;
 }
 
-.game-container {
-	float: left;
-	height: 50vh;
-	width: 60%;
-}
-
-.game-sidebar {
-	background-image: url('media/portal.jpg');
-	background-position: center;
-	background-size: cover;
-	box-shadow: -10px 10px 15px #525252;
- 	display: inline-block;
- 	float: right;
- 	height: 488px;
- 	margin: 0 5% 0 0;
-	width: 33%;
-}
-
-.sidebar-div {
-	background-color: #B7B3A7; 
-	box-shadow: 3px 3px 3px 1px #FBF9FC inset, -3px -3px 3px 1px #525252 inset;
-	font-size: 30px;
-	height: 23%;
-	margin: 8% auto;
-	width: 95%;
-}
-
-.sidebar-sub-div {
-	background-color: #B7B3A7; 
-	font-size: 24px;
-	height: 20%;
-	margin: 0 auto;
-	width: 80%;
-}
-
-.key-table {
-	background-color: #B7B3A7;
-	margin: 0 0 0 20%;
-	box-shadow: none;
-}
-
 table {
 	background-color: #B7B3A7;
 	box-shadow: 10px 10px 15px #525252;
@@ -75,54 +37,10 @@ td {
 	width: 50px;
 }
 
-.wall-block {
-	background-image: url('media/moroccan-tile-5.jpg');
-	background-size: cover;
-	box-shadow: 3px 3px 3px 1px #FBF9FC inset, -3px -3px 3px 1px #525252 inset; 
-}
-
-.key-door {
-	content: url('media/ancient-key.png');
-	background-image: url('media/moroccan-tile-5.jpg');
-	background-size: cover;
-	box-shadow: 3px 3px 3px 1px #FBF9FC inset, -3px -3px 3px 1px #525252 inset; 
-}
-
-.player {
-	background-image: url('media/thobe-player.png');
-	background-size: cover;
-	height: 100%;
-	margin: 0 auto;
-	width: 50%;
-}
-
-.key {
-	content: url('media/ancient-key.png');
-}
-
-.chip {
-	content: url('media/genie-lamp-3.png');
-}
-
-.portal-door {
-	content: url('media/portal-door.png');
-}
-
-.portal {
-	background-image: url('media/portal.jpg');
-	background-position: center;
-	height: 50px;
-	width: 50px;
-}
-
-.enemy {
-	content: url('media/djinn.png');
-	height: 50px;
-	width: 50px;
-}
+/* Styles landing page */
 
 .game-title-div {
-	background-color: rgba(187, 164, 109, 0.5);
+	background-color: rgba(187, 164, 109, .5);
 }
 
 .game-title {
@@ -155,20 +73,22 @@ td {
 	margin: 0 auto;
 }
 
+/* Styles character page */
+
 .character-page-background {
 	background-image: url('media/moroccan-tile-6.jpg');
 }
 
 .character-title {
-	background-color: rgba(139,117,67,.7); /*(254,216,93,.7); /*(18,23,68,.5); navy blue*/
+	background-color: rgba(139, 117, 67, .7); 
 	font-size: 100px;
 	margin: 0;
 	padding: 3%;
-	text-shadow: 5px 5px 10px #121744; /*#8B7543; #FED85D light yellow*/
+	text-shadow: 5px 5px 10px #121744; 
 }
 
 .dog-button {
-	background-color: #8B7543; /*#FED85D; light yellow*/
+	background-color: #8B7543; 
 	background-image: url('media/dog-2.png');
 	background-size: cover;
 	box-shadow: 2px 2px 2px 1px #FBF9FC inset, -2px -2px 2px 1px #525252 inset; 
@@ -183,7 +103,7 @@ td {
 }
 
 .cat-button {
-	background-color: #8B7543; /*#FED85D; light yellow*/
+	background-color: #8B7543; 
 	background-image: url('media/cat-2.png');
 	background-size: cover;
 	box-shadow: 2px 2px 2px 1px #FBF9FC inset, -2px -2px 2px 1px #525252 inset; 
@@ -209,12 +129,14 @@ td {
 	width: 49.5%;
 }
 
+/* Styles name entry page */
+
 .name-page-background {
 	background-image: url('media/moroccan-tile-3.jpg');
 }
 
 .name-title {
-	background-color: rgba(82,39,38,0.7); 
+	background-color: rgba(82, 39, 38, .7); 
 	font-size: 100px;
 	margin: 0;
 	padding: 3%;
@@ -249,8 +171,10 @@ td {
 	font-size: 60px;
 }
 
+/* Styles weapon page */
+
 .weapon-title {
-	background-color: rgba(92,36,19,.8); 
+	background-color: rgba(92, 36, 19, .8); 
 	font-size: 100px;
 	margin: 0;
 	padding: 3%;
@@ -284,7 +208,7 @@ td {
 }
 
 .carabiner-button {
-	background-color: rgba(92,36,19,.8);
+	background-color: rgba(92, 36, 19, .8);
 	background-image: url('media/carabiner-2.png');
 	background-size: cover;
 	box-shadow: 2px 2px 2px 1px #FBF9FC inset, -2px -2px 2px 1px #525252 inset; 
@@ -298,7 +222,7 @@ td {
 }
 
 .book-button {
-	background-color: rgba(92,36,19,.8);
+	background-color: rgba(92, 36, 19, .8);
 	background-image: url('media/book-2.png');
 	background-size: cover;
 	box-shadow: 2px 2px 2px 1px #FBF9FC inset, -2px -2px 2px 1px #525252 inset; 
@@ -312,7 +236,7 @@ td {
 }
 
 .fishing-pole-button {
-	background-color: rgba(92,36,19,.8);
+	background-color: rgba(92, 36, 19, .8);
 	background-image: url('media/fishing-pole.png');
 	background-size: cover;
 	box-shadow: 2px 2px 2px 1px #FBF9FC inset, -2px -2px 2px 1px #525252 inset; 
@@ -325,6 +249,10 @@ td {
 	box-shadow: 5px 5px 10px #121744;
 }
 
+/* Styles dun Djinn Game page */
+
+/* Styles header and background of dun Djinn game page */
+
 .game-page-background {
 	background-image: url('media/mosque.jpg');
 	background-position: center;
@@ -334,6 +262,99 @@ td {
 	font-size: 50px;
 	margin: 0;
 }
+
+/* Styles left-hand column within dun Djinn game page */
+
+.game-container {
+	float: left;
+	height: 50vh;
+	width: 60%;
+}
+
+.wall-block {
+	background-image: url('media/moroccan-tile-5.jpg');
+	background-size: cover;
+	box-shadow: 3px 3px 3px 1px #FBF9FC inset, -3px -3px 3px 1px #525252 inset; 
+}
+
+.key-door {
+	background-image: url('media/moroccan-tile-5.jpg');
+	background-size: cover;
+	box-shadow: 3px 3px 3px 1px #FBF9FC inset, -3px -3px 3px 1px #525252 inset; 
+	content: url('media/ancient-key.png');
+}
+
+.player {
+	background-image: url('media/thobe-player.png');
+	background-size: cover;
+	height: 100%;
+	margin: 0 auto;
+	width: 50%;
+}
+
+.key {
+	content: url('media/ancient-key.png');
+}
+
+.lamp {
+	content: url('media/genie-lamp-3.png');
+}
+
+.portal-door {
+	content: url('media/portal-door.png');
+}
+
+.portal {
+	background-image: url('media/portal.jpg');
+	background-position: center;
+	height: 50px;
+	width: 50px;
+}
+
+.enemy {
+	content: url('media/djinn.png');
+	height: 50px;
+	width: 50px;
+}
+
+/* Styles right-hand column within dun Djinn game page */
+
+.game-sidebar {
+	background-image: url('media/portal.jpg');
+	background-position: center;
+	background-size: cover;
+	box-shadow: -10px 10px 15px #525252;
+ 	display: inline-block;
+ 	float: right;
+ 	height: 488px;
+ 	margin: 0 5% 0 0;
+	width: 33%;
+}
+
+.sidebar-div {
+	background-color: #B7B3A7; 
+	box-shadow: 3px 3px 3px 1px #FBF9FC inset, -3px -3px 3px 1px #525252 inset;
+	font-size: 30px;
+	height: 23%;
+	margin: 8% auto;
+	width: 95%;
+}
+
+.sidebar-sub-div {
+	background-color: #B7B3A7; 
+	font-size: 24px;
+	height: 20%;
+	margin: 0 auto;
+	width: 80%;
+}
+
+.key-table {
+	background-color: #B7B3A7;
+	box-shadow: none;
+	margin: 0 0 0 20%;
+}
+
+/* Styles win page */
 
 .win-page-background {
 	background-image: url('media/museum-ceiling.jpg');
@@ -347,6 +368,8 @@ td {
 	font-size: 150px;
 	margin: 0 auto;
 }
+
+/* Styles game over pages */
 
 .game-over-title {
 	background-color: black;
@@ -363,8 +386,8 @@ td {
 	background-size: cover;
 	box-shadow: 6px 6px 6px 2px #FBF9FC inset, -6px -6px 6px 2px #525252 inset; 
 	font-size: 80px;
-	letter-spacing: 1px;
 	height: 204px;
+	letter-spacing: 1px;
 	width: 300px;
 }
 

@@ -7,14 +7,40 @@ document.addEventListener('DOMContentLoaded', function() {
 	let wallBlocksArray = [2,3,4,8,11,13,17,18,19,20,22,23,24,25,26,27,33,36,42,45,51,52,53,54,60,63,69,72,73,74,75,76,77,78,79,80];
 	let keyArray = [0,7,32,62];
 	let keyDoorsArray = [19,23,42,69];
-	let chipArray = [10,15,35,37,50,67,71];
+	let lampArray = [10,15,35,37,50,67,71];
 	let enemy;
 	let timerVar;
 	let enemyVar;
-	let chipsLeft;
+	let lampsLeft;
 	let tdArray = [];
 	let keysCollectedArray = [];
 	let currentPage; 
+
+	function startLandingPage() {
+
+  	currentPage = 'landing';
+
+  	// add a game title across the top of the screen
+		let pageTitleDiv = document.createElement('div');
+		pageTitleDiv.classList.add('game-title-div');
+		gamePage.append(pageTitleDiv);
+		let pageTitle = document.createElement('h1');
+		pageTitle.classList.add('game-title');
+		pageTitle.innerHTML = "Court's quest";
+		pageTitleDiv.append(pageTitle);
+
+		// update the background photo
+		gamePage.classList.add('landing-page-background');
+
+		// add a button to load the next page
+		let startButton = document.createElement('button');
+		startButton.setAttribute('class','start-button');
+		startButton.innerHTML = 'Start';
+		gamePage.append(startButton);
+
+		// add an event listener for button click that takes you to the next page of the quest
+		startButton.addEventListener('click', startCharacterPage);
+  }
 
 	function clearGamePage(page) {
 		// remove all the elements and styles from the character page
@@ -203,7 +229,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		};
 
 		// prototype method for the Character object: create(), checkDirection(), randomDirection(), stop(), move(), isWall(), isDoor(), 
-		// isPortalDoor(), isPortal(), collect(), isKey(), isChip(), decrementChips(), isLocked(), updateKeyLocker(), openPortalDoor()
+		// isPortalDoor(), isPortal(), collect(), isKey(), isLamp(), decrementLamps(), isLocked(), updateKeyLocker(), openPortalDoor()
 		Character.prototype = {
 
 			// creates the player and enemy divs on top of their start cells
@@ -296,7 +322,7 @@ document.addEventListener('DOMContentLoaded', function() {
 						if (this.isWall(newCell)) {
 						return;
 					} else if (this.isPortalDoor(newCell)) {
-						this.openPortalDoor(chipsLeft);
+						this.openPortalDoor(lampsLeft);
 					} else if (this.isDoor(newCell)) {
 						this.isLocked(newCell);
 					} else if (this.isPortal(newCell)) {
@@ -376,20 +402,22 @@ document.addEventListener('DOMContentLoaded', function() {
 				}
 			},
 
-			// removes the key/chip from the game, decrements chips or adds keys to the key locker, and then adds keys to an array
+			// removes the key/lamp from the game, decrements lamps or adds keys to the key locker, and 
+			// then adds keys to an array
 			collect: function(newCell) {
 
-				// if it's a key, remove it from the game board, make it appear in the key locker, and add it to an array of keys collected
+				// if it's a key, remove it from the game board, make it appear in the key locker, 
+				// and add it to an array of keys collected
 				if (this.isKey(newCell)) {
 					newCell.classList.remove('key');
 					let key = 1;
 					keysCollectedArray.push(key);
 					this.updateKeyLocker();
 				} 
-				//if it's a chip, remove it from the game board, and decrement the total number of chips left to collect
-				else if (this.isChip(newCell)) {
-					newCell.classList.remove('chip');
-					chipsLeft = this.decrementChips();
+				//if it's a lamp, remove it from the game board, and decrement the total number of lamps left to collect
+				else if (this.isLamp(newCell)) {
+					newCell.classList.remove('lamp');
+					lampsLeft = this.decrementLamps();
 				} 
 			},
 
@@ -401,20 +429,20 @@ document.addEventListener('DOMContentLoaded', function() {
 				}
 			},
 
-			isChip: function(newCell) {
-				if (newCell.classList.value === 'chip') {
+			isLamp: function(newCell) {
+				if (newCell.classList.value === 'lamp') {
 					return true;
 				} else {
 					return false;
 				}
 			},
 
-			// everytime the player picks up a chip, decrement the number of chips left to pick up
-			decrementChips: function() {
-				chipsLeft = -- hubContentArray[1];
-				let currentChipsDiv = document.getElementsByClassName('sidebar-sub-div')[1];
-				currentChipsDiv.textContent = chipsLeft;
-				return chipsLeft;
+			// everytime the player picks up a lamp, decrement the number of lamps left to pick up
+			decrementLamps: function() {
+				lampsLeft = -- hubContentArray[1];
+				let currentLampsDiv = document.getElementsByClassName('sidebar-sub-div')[1];
+				currentLampsDiv.textContent = lampsLeft;
+				return lampsLeft;
 			},
 
 			// check to see if player has a key to "unlock" the door, update the key locker if you use one
@@ -444,8 +472,8 @@ document.addEventListener('DOMContentLoaded', function() {
 				}	
 			},
 
-			openPortalDoor(chipsLeft) {
-				if (chipsLeft === 0) {
+			openPortalDoor(lampsLeft) {
+				if (lampsLeft === 0) {
 					let portalDoor = document.getElementsByClassName('portal-door')[0];
 					portalDoor.classList.remove('portal-door');
 				}
@@ -502,35 +530,35 @@ document.addEventListener('DOMContentLoaded', function() {
 		};
   };
 
-  function createChips() {
+  function createLamps() {
 
 		// constructor function to create 8 keys
-		function Chip() {
+		function Lamp() {
 			this.name = name;
 			this.element = document.createElement('div');
 		};
 
-		// prototype method for the Chip object: create(), openPortalDoor()
-		Chip.prototype = {
+		// prototype method for the Lamp object: create(), openPortalDoor()
+		Lamp.prototype = {
 
 			// creates the key as a div on top of cell (listed in keyArray) at the start
 			create: function() {
 				for (let i = 0; i < tdArray.length; i++) {
 					let tdNum = parseInt(tdArray[i].getAttribute('data-num'));
-					for (let i = 0; i < chipArray.length; i++) {
-						let cNum = chipArray[i];
-						if (tdNum === cNum) { 
-							tdArray[tdNum].classList.add('chip');
+					for (let i = 0; i < lampArray.length; i++) {
+						let lNum = lampArray[i];
+						if (tdNum === lNum) { 
+							tdArray[tdNum].classList.add('lamp');
 						} 
 					}
 				}
 			}
 		};
 
-		// creates 7 chips as divs and puts them on the game
-		for (let i = 0; i < chipArray.length; i++) {
-			let chip = new Chip('chip' + i);
-			chip.create();
+		// creates 7 lamps as divs and puts them on the game
+		for (let i = 0; i < lampArray.length; i++) {
+			let lamp = new Lamp('lamp' + i);
+			lamp.create();
 		}
   };
 
@@ -651,7 +679,7 @@ document.addEventListener('DOMContentLoaded', function() {
   	createBoard();
 		createCharacter();
 		createKeys();
-		createChips();
+		createLamps();
 		timerVar = setInterval(startTimer, 1000);
 		enemyVar = setInterval(startEnemy, 1000); 
    };
@@ -829,31 +857,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		catButton.addEventListener('click', endGame);
   }
 
-  function startLandingPage() {
-
-  	currentPage = 'landing';
-
-  	// add a game title across the top of the screen
-		let pageTitleDiv = document.createElement('div');
-		pageTitleDiv.classList.add('game-title-div');
-		gamePage.append(pageTitleDiv);
-		let pageTitle = document.createElement('h1');
-		pageTitle.classList.add('game-title');
-		pageTitle.innerHTML = "Court's quest";
-		pageTitleDiv.append(pageTitle);
-
-		// update the background photo
-		gamePage.classList.add('landing-page-background');
-
-		// add a button to load the next page
-		let startButton = document.createElement('button');
-		startButton.setAttribute('class','start-button');
-		startButton.innerHTML = 'Start';
-		gamePage.append(startButton);
-
-		// add an event listener for button click that takes you to the next page of the quest
-		startButton.addEventListener('click', startCharacterPage);
-  }
+  
 
   startLandingPage();
 });
