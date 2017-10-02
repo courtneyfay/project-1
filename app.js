@@ -12,15 +12,69 @@ document.addEventListener('DOMContentLoaded', function() {
 	let timerVar;
 	let enemyVar;
 	let lampsLeft;
-	let tdArray = [];
 	let keysCollectedArray = [];
+	let tdArray = [];
 	let currentPage; 
+
+	// constructor function to create unique Pages 
+	/*function Page() {
+		this.name = '';
+		this.div1 = document.createElement('div');
+		this.heading = document.createElement('h1');
+		this.button1 = document.createElement('button');
+		this.backgroundClass = '';
+		this.div1Class = '';
+		this.headingClass = '';
+		this.headingText = '';
+		this.button1Class = '';
+	};
+
+	// prototype methods for the Page object: create(), append(), delete()
+	Page.prototype = {
+
+		// creates the HTML for the page and 
+		create: function(name,backgroundClass,div1Class,headingClass,headingText,button1Class,buttonText,clearPage) {
+			this.name = name;
+			this.backgroundClass = backgroundClass;
+			this.div1Class = div1Class;
+			this.headingClass = headingClass;
+			this.headingText = headingText;
+			this.button1Class = button1Class;
+		},
+
+		// appends all the new HTML elements to the page body and adds CSS classes to style
+		append: function() {
+			this.div1.classList.add(div1Class);
+			gamePage.append(this.div1);
+			this.heading.classList.add(headingClass);
+			this.heading.innerHTML = headingText;
+			this.div1.append(this.heading);
+			gamePage.classList.add(backgroundClass);
+			this.button1.classList.add(button1Class);
+			this.button1.innerHTML = buttonText;
+			gamePage.append(this.button1);	
+
+			// adds event listeners	
+			this.button1.addEventListener('click', clearPage); //startCharacterPage()
+		},
+
+		// removes the HTML elements/CSS classes for that page from the body (gamePage variable)
+		delete: function() {
+			console.log(this.div1);
+			console.log(this.button1);
+			gamePage.classList.remove(backgroundClass);
+			gamePage.removeChild(this.div1);
+			gamePage.removeChild(this.button1);
+			
+		}
+
+	};*/
 
 	function startLandingPage() {
 
   	currentPage = 'landing';
 
-  	// add a game title across the top of the screen
+  	//add a game title across the top of the screen
 		let pageTitleDiv = document.createElement('div');
 		pageTitleDiv.classList.add('game-title-div');
 		gamePage.append(pageTitleDiv);
@@ -29,18 +83,220 @@ document.addEventListener('DOMContentLoaded', function() {
 		pageTitle.innerHTML = "Court's quest";
 		pageTitleDiv.append(pageTitle);
 
-		// update the background photo
+		//update the background photo
 		gamePage.classList.add('landing-page-background');
 
-		// add a button to load the next page
+		//add a button to load the next page
 		let startButton = document.createElement('button');
 		startButton.setAttribute('class','start-button');
 		startButton.innerHTML = 'Start';
 		gamePage.append(startButton);
 
-		// add an event listener for button click that takes you to the next page of the quest
+		//add an event listener for button click that takes you to the next page of the quest
 		startButton.addEventListener('click', startCharacterPage);
   }
+
+	function startCharacterPage() {
+
+  	currentPage = 'character';
+  	clearLandingPage(currentPage);
+
+  	// add a character page title across the top of the screen
+		let characterTitleDiv = document.createElement('div');
+		gamePage.append(characterTitleDiv);
+		let characterTitle = document.createElement('h1');
+		characterTitle.classList.add('character-title');
+		characterTitle.innerHTML = 'choose your character:';
+		characterTitleDiv.append(characterTitle);
+
+		// update the background photo
+		gamePage.classList.add('character-page-background');
+
+		// add right column div, dog character button, and event listener
+		let rightCharacter = document.createElement('div');
+		rightCharacter.setAttribute('class','right-column');
+		gamePage.append(rightCharacter);
+		let dogButton = document.createElement('button');
+		dogButton.setAttribute('class','dog-button');
+		rightCharacter.append(dogButton);
+		dogButton.addEventListener('click', startNamePage);
+
+		// add left column div, cat character button, and event listener
+		let leftCharacter = document.createElement('div');
+		leftCharacter.setAttribute('class','left-column');
+		gamePage.append(leftCharacter);
+		let catButton = document.createElement('button');
+		catButton.setAttribute('class','cat-button');
+		leftCharacter.append(catButton);
+		catButton.addEventListener('click', endGame);
+  }
+
+  function startNamePage() {
+
+  	let nameArray = ['david','nick','joe','will','michael','matt'];
+
+  	currentPage = 'name';
+  	clearCharacterPage(currentPage);
+
+  	// adds a name page title across the top of the screen
+		let nameTitleDiv = document.createElement('div');
+		gamePage.append(nameTitleDiv);
+		let nameTitle = document.createElement('h1');
+		nameTitle.classList.add('name-title');
+		nameTitle.innerHTML = 'enter your name:';
+		nameTitleDiv.append(nameTitle);
+
+		// update the background photo
+		gamePage.classList.add('name-page-background');
+
+		// add a text input for username
+		let nameInput = document.createElement('input');
+		nameInput.setAttribute('type','text');
+		nameInput.setAttribute('class','name-input');
+		gamePage.append(nameInput);
+
+		// add a button to submit the user name input
+		let nameButton = document.createElement('input');
+		nameButton.setAttribute('type','submit');
+		nameButton.setAttribute('class','name-button');
+		gamePage.append(nameButton);
+		nameButton.addEventListener('click', checkName);
+
+		// checks to see if user name matches one of the values in the NameArray
+		function checkName() {
+			let nameInputValue = nameInput.value.toLowerCase();;
+			
+			for (let i = 0; i < nameArray.length; i++) {
+				if (nameInputValue === nameArray[i]) {
+					endGame();
+				} 
+			}
+
+			// save name into user variable REMOVE TOLOWERCASE()
+			startWeaponPage();
+		};
+  };
+
+  function startWeaponPage() {
+
+  	currentPage = 'weapon';
+		clearNamePage(currentPage);  	
+
+  	// adds a weapon page title across the top of the screen
+		let weaponTitleDiv = document.createElement('div');
+		gamePage.append(weaponTitleDiv);
+		let weaponTitle = document.createElement('h1');
+		weaponTitle.classList.add('weapon-title');
+		weaponTitle.innerHTML = 'choose your weapon:';
+		weaponTitleDiv.append(weaponTitle);
+
+		// update the background photo
+		gamePage.classList.add('weapon-page-background');
+
+		// add right column div, book weapon button, and event listener
+		let rightWeapon = document.createElement('div');
+		rightWeapon.setAttribute('class','right-column-weapon');
+		gamePage.append(rightWeapon);
+		let bookButton = document.createElement('button');
+		bookButton.setAttribute('class','book-button');
+		rightWeapon.append(bookButton);
+		bookButton.addEventListener('click', startGame);
+
+		// add left column div, fishing pole weapon button, and event listener
+		let leftWeapon = document.createElement('div');
+		leftWeapon.setAttribute('class','left-column-weapon');
+		gamePage.append(leftWeapon);
+		let fishingPoleButton = document.createElement('button');
+		fishingPoleButton.setAttribute('class','fishing-pole-button');
+		leftWeapon.append(fishingPoleButton);
+		fishingPoleButton.addEventListener('click', endGame);
+
+		// add middle column div, carabiner weapon button, and event listener
+		let middleWeapon = document.createElement('div');
+		middleWeapon.setAttribute('class','middle-column-weapon');
+		gamePage.append(middleWeapon);
+		let carabinerButton = document.createElement('button');
+		carabinerButton.setAttribute('class','carabiner-button');
+		middleWeapon.append(carabinerButton);
+		carabinerButton.addEventListener('click', startGame);
+  };
+
+  function clearLandingPage(page) {
+  	// remove all the elements and styles from the landing page
+  	let destroyDiv = document.getElementsByTagName('div')[0];
+  	gamePage.removeChild(destroyDiv);
+  	let destroyButton = document.getElementsByTagName('button')[0];
+  	gamePage.removeChild(destroyButton);
+  	gamePage.classList.remove('landing-page-background');
+  	if (page === 'dead') {
+  		console.log('clear-landing' + page);
+  	} else {
+  		return;
+  	}
+  };
+
+  function clearLandingPage(page) {
+
+  	//remove all the elements and styles from the landing page
+  	let destroyDiv = document.getElementsByTagName('div')[0];
+  	gamePage.removeChild(destroyDiv);
+  	let destroyButton = document.getElementsByTagName('button')[0];
+  	gamePage.removeChild(destroyButton);
+  	gamePage.classList.remove('landing-page-background');
+  	if (page === 'dead') {
+  		console.log('clear-landing' + page);
+  	} else {
+  		return;
+  	}
+  };
+
+  function clearCharacterPage(page) {
+
+  	// remove all the elements and styles from the character page
+  	let destroyDivNodeList= document.getElementsByTagName('div');
+  	for (let i = destroyDivNodeList.length >>> 0; i--;) {
+  		gamePage.removeChild(destroyDivNodeList[i]);
+  	}
+  	gamePage.classList.remove('character-page-background');
+  	
+		if (page === 'dead') {
+  		console.log('clear-character' + page);
+  	} else {
+  		return;
+  	}
+  };
+
+  function clearNamePage(page) {
+
+  	// remove all the elements and styles from the name page
+  	let destroyNameDiv = document.getElementsByTagName('div')[0];
+  	gamePage.removeChild(destroyNameDiv);
+  	let destroyInputsNodeList = document.getElementsByTagName('input');
+		for (let i = destroyInputsNodeList.length >>> 0; i--;) {
+  		gamePage.removeChild(destroyInputsNodeList[i]);
+  	}
+  	gamePage.classList.remove('name-page-background');	
+  	
+  	if (page === 'dead') {
+  		console.log('clear-name' + page);
+  	} else {
+  		return;
+  	}
+  };
+
+  function clearWeaponPage(page) {
+		// remove all the elements and styles from the weapon page
+  	let destroyDaDivsNodeList = document.getElementsByTagName('div');
+		for (let i = destroyDaDivsNodeList.length >>> 0; i--;) {
+  		gamePage.removeChild(destroyDaDivsNodeList[i]);
+  	}
+  	gamePage.classList.remove('weapon-page-background');
+  	if (page === 'dead') {
+  		console.log('clear-weapon' + page);
+  	} else {
+  		return;
+  	}
+	};
 
 	function clearGamePage(page) {
 		// remove all the elements and styles from the character page
@@ -61,47 +317,66 @@ document.addEventListener('DOMContentLoaded', function() {
   	}
 	};
 
-	function startWinPage() {
+	function endGame() {
+  	clearInterval(timerVar);
+  	clearInterval(enemyVar);
 
-		/*clearFinalBossPage();*/
-
-		// adds a win page memo
-		let winDiv = document.createElement('div');
-		gamePage.append(winDiv);
-		let winTitle = document.createElement('h1');
-		winTitle.classList.add('win-title');
-		winTitle.innerHTML = 'Thank you, [name]. Your application is being processed.';
-		winDiv.append(winTitle);
-
-		// update the background photo
-		gamePage.classList.add('win-page-background');
-
-	};
-
-	function startFinalBossPage() {
-
-		currentPage = 'boss';
-		clearGamePage(currentPage);
-  	
-  	//add new elements
-
-  	startWinPage();
-  	
-  }
-
-	function clearWeaponPage(page) {
-		// remove all the elements and styles from the weapon page
-  	let destroyDaDivsNodeList = document.getElementsByTagName('div');
-		for (let i = destroyDaDivsNodeList.length >>> 0; i--;) {
-  		gamePage.removeChild(destroyDaDivsNodeList[i]);
+  	// clear whichever HTML elements are on the page
+  	switch(currentPage) {
+  		case 'landing':
+  			clearLandingPage();
+  			break;
+  		case 'character':
+  			clearCharacterPage();
+  			break;
+  		case 'name':
+  			clearNamePage();
+  			break;
+  		case 'weapon':
+  			clearWeaponPage();
+  			break;
+  		case 'game':
+  			clearGamePage();
+  			break;
+  		default:
+  			console.log('clear previous page not working!!');
   	}
-  	gamePage.classList.remove('weapon-page-background');
-  	if (page === 'dead') {
-  		console.log('clear-weapon' + page);
-  	} else {
-  		return;
+
+  	// use the currentPage parameter to tell function which death video to play
+  	startDeathVideo(currentPage);
+  };
+
+	function startDeathVideo(page) {
+  	// add black background
+  	gamePage.classList.add('game-over-background');
+
+  	// add HTML video player
+  	let video = document.createElement('video');
+  	gamePage.append(video);
+
+  	// use currentPage variable to figure out which video to set as src
+  	switch(page) {
+  		case 'character':
+  			video.src = 'media/littlefinger.mp4';
+  			break;
+  		case 'name':
+  			video.src = 'media/joffrey.mp4';
+  			break;
+  		case 'weapon':
+  			video.src = 'media/viserys.mp4';
+  			break;
+  		case 'game':
+  			video.src = 'media/tommen.mp4';
+  			break;
+  		// if final boss, play Ygritte
+  		// Ygritte. https://www.youtube.com/watch?v=qDTOc_oUFHU. 3:26 - 3:36
+  		default:
+  			console.log('death video logic is broken'); 
   	}
-	};
+  	video.autoplay = true;
+
+  	setTimeout(startResetPage,7000);
+  };
 
 	function createBoard() {
 
@@ -328,7 +603,7 @@ document.addEventListener('DOMContentLoaded', function() {
 					} else if (this.isPortal(newCell)) {
 						let portal = document.getElementsByClassName('portal')[0];
 						portal.classList.remove('portal');
-						startFinalBossPage();
+						startWinPage();
 					} else {
 						this.collect(newCell);
 						newCell.append(this.element);
@@ -614,67 +889,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		resetButton.addEventListener('click', clearResetPage);
   };
 
-  function startDeathVideo(page) {
-  	// add black background
-  	gamePage.classList.add('game-over-background');
-
-  	// add HTML video player
-  	let video = document.createElement('video');
-  	gamePage.append(video);
-
-  	// use currentPage variable to figure out which video to set as src
-  	switch(page) {
-  		case 'character':
-  			video.src = 'media/littlefinger.mp4';
-  			break;
-  		case 'name':
-  			video.src = 'media/joffrey.mp4';
-  			break;
-  		case 'weapon':
-  			video.src = 'media/viserys.mp4';
-  			break;
-  		case 'game':
-  			video.src = 'media/tommen.mp4';
-  			break;
-  		// if final boss, play Ygritte
-  		// Ygritte. https://www.youtube.com/watch?v=qDTOc_oUFHU. 3:26 - 3:36
-  		default:
-  			console.log('death video logic is broken'); 
-  	}
-  	video.autoplay = true;
-
-  	setTimeout(startResetPage,7000);
-  };
-
-  function endGame() {
-  	clearInterval(timerVar);
-  	clearInterval(enemyVar);
-
-  	// clear whichever HTML elements are on the page
-  	switch(currentPage) {
-  		case 'landing':
-  			clearLandingPage();
-  			break;
-  		case 'character':
-  			clearCharacterPage();
-  			break;
-  		case 'name':
-  			clearNamePage();
-  			break;
-  		case 'weapon':
-  			clearWeaponPage();
-  			break;
-  		case 'game':
-  			clearGamePage();
-  			break;
-  		default:
-  			console.log('clear previous page not working!!');
-  	}
-
-  	// use the currentPage parameter to tell function which death video to play
-  	startDeathVideo(currentPage);
-  };
-
   function startGame() {
   	createBoard();
 		createCharacter();
@@ -684,180 +898,28 @@ document.addEventListener('DOMContentLoaded', function() {
 		enemyVar = setInterval(startEnemy, 1000); 
    };
 
-  function clearNamePage(page) {
+  function startWinPage() {
 
-  	// remove all the elements and styles from the name page
-  	let destroyNameDiv = document.getElementsByTagName('div')[0];
-  	gamePage.removeChild(destroyNameDiv);
-  	let destroyInputsNodeList = document.getElementsByTagName('input');
-		for (let i = destroyInputsNodeList.length >>> 0; i--;) {
-  		gamePage.removeChild(destroyInputsNodeList[i]);
-  	}
-  	gamePage.classList.remove('name-page-background');	
-  	
-  	if (page === 'dead') {
-  		console.log('clear-name' + page);
-  	} else {
-  		return;
-  	}
-  };
+		clearGamePage();
 
-  function startWeaponPage() {
-
-  	currentPage = 'weapon';
-		clearNamePage(currentPage);  	
-
-  	// adds a weapon page title across the top of the screen
-		let weaponTitleDiv = document.createElement('div');
-		gamePage.append(weaponTitleDiv);
-		let weaponTitle = document.createElement('h1');
-		weaponTitle.classList.add('weapon-title');
-		weaponTitle.innerHTML = 'choose your weapon:';
-		weaponTitleDiv.append(weaponTitle);
+		// adds a win page memo
+		let winDiv = document.createElement('div');
+		gamePage.append(winDiv);
+		let winTitle = document.createElement('h1');
+		winTitle.classList.add('win-title');
+		winTitle.innerHTML = 'Thank you, [name]. Your application is being processed.';
+		winDiv.append(winTitle);
 
 		// update the background photo
-		gamePage.classList.add('weapon-page-background');
+		gamePage.classList.add('win-page-background');
 
-		// add right column div, book weapon button, and event listener
-		let rightWeapon = document.createElement('div');
-		rightWeapon.setAttribute('class','right-column-weapon');
-		gamePage.append(rightWeapon);
-		let bookButton = document.createElement('button');
-		bookButton.setAttribute('class','book-button');
-		rightWeapon.append(bookButton);
-		bookButton.addEventListener('click', startGame);
-
-		// add left column div, fishing pole weapon button, and event listener
-		let leftWeapon = document.createElement('div');
-		leftWeapon.setAttribute('class','left-column-weapon');
-		gamePage.append(leftWeapon);
-		let fishingPoleButton = document.createElement('button');
-		fishingPoleButton.setAttribute('class','fishing-pole-button');
-		leftWeapon.append(fishingPoleButton);
-		fishingPoleButton.addEventListener('click', endGame);
-
-		// add middle column div, carabiner weapon button, and event listener
-		let middleWeapon = document.createElement('div');
-		middleWeapon.setAttribute('class','middle-column-weapon');
-		gamePage.append(middleWeapon);
-		let carabinerButton = document.createElement('button');
-		carabinerButton.setAttribute('class','carabiner-button');
-		middleWeapon.append(carabinerButton);
-		carabinerButton.addEventListener('click', startGame);
-  };
-
-  function clearCharacterPage(page) {
-
-  	// remove all the elements and styles from the character page
-  	let destroyDivNodeList= document.getElementsByTagName('div');
-  	for (let i = destroyDivNodeList.length >>> 0; i--;) {
-  		gamePage.removeChild(destroyDivNodeList[i]);
-  	}
-  	gamePage.classList.remove('character-page-background');
-  	
-		if (page === 'dead') {
-  		console.log('clear-character' + page);
-  	} else {
-  		return;
-  	}
-  };
-
-  function startNamePage() {
-
-  	let nameArray = ['david','nick','joe','will','michael','matt'];
-
-  	currentPage = 'name';
-  	clearCharacterPage(currentPage);
-
-  	// adds a name page title across the top of the screen
-		let nameTitleDiv = document.createElement('div');
-		gamePage.append(nameTitleDiv);
-		let nameTitle = document.createElement('h1');
-		nameTitle.classList.add('name-title');
-		nameTitle.innerHTML = 'enter your name:';
-		nameTitleDiv.append(nameTitle);
-
-		// update the background photo
-		gamePage.classList.add('name-page-background');
-
-		// add a text input for username
-		let nameInput = document.createElement('input');
-		nameInput.setAttribute('type','text');
-		nameInput.setAttribute('class','name-input');
-		gamePage.append(nameInput);
-
-		// add a button to submit the user name input
-		let nameButton = document.createElement('input');
-		nameButton.setAttribute('type','submit');
-		nameButton.setAttribute('class','name-button');
-		gamePage.append(nameButton);
-		nameButton.addEventListener('click', checkName);
-
-		// checks to see if user name matches one of the values in the NameArray
-		function checkName() {
-			let nameInputValue = nameInput.value.toLowerCase();;
-			
-			for (let i = 0; i < nameArray.length; i++) {
-				if (nameInputValue === nameArray[i]) {
-					endGame();
-				} 
-			}
-
-			// save name into user variable REMOVE TOLOWERCASE()
-			startWeaponPage();
-		};
-  }
-
-  function clearLandingPage(page) {
-  	// remove all the elements and styles from the landing page
-  	let destroyDiv = document.getElementsByTagName('div')[0];
-  	gamePage.removeChild(destroyDiv);
-  	let destroyButton = document.getElementsByTagName('button')[0];
-  	gamePage.removeChild(destroyButton);
-  	gamePage.classList.remove('landing-page-background');
-  	if (page === 'dead') {
-  		console.log('clear-landing' + page);
-  	} else {
-  		return;
-  	}
-  };
-
-  function startCharacterPage() {
-
-  	currentPage = 'character';
-  	clearLandingPage(currentPage);
-
-  	// add a character page title across the top of the screen
-		let characterTitleDiv = document.createElement('div');
-		gamePage.append(characterTitleDiv);
-		let characterTitle = document.createElement('h1');
-		characterTitle.classList.add('character-title');
-		characterTitle.innerHTML = 'choose your character:';
-		characterTitleDiv.append(characterTitle);
-
-		// update the background photo
-		gamePage.classList.add('character-page-background');
-
-		// add right column div, dog character button, and event listener
-		let rightCharacter = document.createElement('div');
-		rightCharacter.setAttribute('class','right-column');
-		gamePage.append(rightCharacter);
-		let dogButton = document.createElement('button');
-		dogButton.setAttribute('class','dog-button');
-		rightCharacter.append(dogButton);
-		dogButton.addEventListener('click', startNamePage);
-
-		// add left column div, cat character button, and event listener
-		let leftCharacter = document.createElement('div');
-		leftCharacter.setAttribute('class','left-column');
-		gamePage.append(leftCharacter);
-		let catButton = document.createElement('button');
-		catButton.setAttribute('class','cat-button');
-		leftCharacter.append(catButton);
-		catButton.addEventListener('click', endGame);
-  }
-
-  
+	};
 
   startLandingPage();
+
+  // new way to create the page
+  /*let landingPage = new Page();
+  landingPage.create('landing','landing-page-background','game-title-div','game-title',"Court's quest",'start-button','Start',landingPage.delete);
+  landingPage.append();
+  console.log(landingPage);*/
 });
