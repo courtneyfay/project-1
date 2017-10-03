@@ -38,12 +38,13 @@ td {
 }
 
 /* Styles landing page */
-
+/*
 .game-title-div {
-	background-color: rgba(187, 164, 109, .5);
-}
+	
+}*/
 
 .game-title {
+	background-color: rgba(187, 164, 109, .5);
 	font-size: 250px;
 	margin: 0;
 	opacity: 1;
